@@ -11,3 +11,10 @@ body {
 
 .leaflet-container {
 }
+
+
+.leaflet-grid-label .lng {
+    margin-left: 8px;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
