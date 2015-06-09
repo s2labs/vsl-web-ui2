@@ -11,12 +11,12 @@ Device.reopenClass({
         {
            id: 1,
            title: 'Learn Ember.js',
-           location: L.latLng(75.7907, -92.2302),
+           location: L.latLng(70.7907, -92.2302),
          },
          {
            id: 2,
            title: '...',
-           location: L.latLng(76.7907, -92.2302),
+           location: L.latLng(76.7907, -93.2402),
          },
          {
            id: 3,
