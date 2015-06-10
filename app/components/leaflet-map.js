@@ -1,9 +1,10 @@
 
 /* global L */
+import Ember from 'ember';
 import EmberLeafletComponent from 'ember-leaflet/components/leaflet-map';
 import MarkerLayer from 'ember-leaflet/layers/marker';
 import MarkerCollectionLayer from 'ember-leaflet/layers/marker-collection';
-import MarkerClusterLayer from 'ember-leaflet/layers/marker-cluster';
+//import MarkerClusterLayer from 'ember-leaflet/layers/marker-cluster';
 
 import DraggableMixin from 'ember-leaflet/mixins/draggable';
 import PopupMixin from 'ember-leaflet/mixins/popup';
@@ -20,11 +21,8 @@ export default EmberLeafletComponent.extend({
   
   didCreateLayer: function() {
     this._super();
-    L.control.layers(this.childLayers[1]).addTo(this._layer);
+    //L.control.layers(this.childLayers[1]).addTo(this._layer);
     L.control.scale().addTo(this._layer);
-    
-    
-    
     L.control.coordinates({
       position:"bottomleft", //optional default "bootomright"
       //decimals:6, //optional default 4
@@ -52,7 +50,14 @@ export default EmberLeafletComponent.extend({
         content: function() {
           return this.controller.get('model');
         }.property('location'),
-        itemLayerClass: MarkerLayer.extend(DraggableMixin, PopupMixin, { popupContentBinding: 'content.title',})
+        itemLayerClass: MarkerLayer.extend(DraggableMixin, PopupMixin, { 
+          //popupContentBinding: 'content.title',
+          popupViewClass: Ember.View.extend({
+            templateName: 'lamp-popup',
+            classNames: ['popup-view'],
+            tagName: 'span'
+          })
+        })
     })
     
   ]
