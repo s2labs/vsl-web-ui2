@@ -10,17 +10,17 @@ Device.reopenClass({
     FIXTURES: [
         {
            id: 1,
-           title: 'Learn Ember.js',
+           title: 'lamp 1',
            location: L.latLng(70.7907, -92.2302),
          },
          {
            id: 2,
-           title: '...',
+           title: 'dimmable lamp 2',
            location: L.latLng(76.7907, -93.2402),
          },
          {
            id: 3,
-           title: 'Profit!',
+           title: 'colored lamp 3',
            location: L.latLng(74.7907, -92.2302),
          }
     ]
