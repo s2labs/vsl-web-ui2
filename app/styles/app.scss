@@ -1,13 +1,13 @@
-/* http://stackoverflow.com/questions/12046315/prevent-overscrolling-of-web-page */
 
 html {
-    overflow: hidden;
-    height: 100%;
+  /* http://stackoverflow.com/questions/12046315/prevent-overscrolling-of-web-page */
+  overflow: hidden;
+  height: 100%;
 }
 
 body {
-    height: 100%;
-    overflow: auto;
+  height: 100%;
+  overflow: auto;
 }
 
 html, body {
@@ -23,18 +23,15 @@ html, body {
 }
 
 
+.leaflet-popup-content {
+  width:300px !important;
+}
+
 .leaflet-grid-label .lng {
     margin-left: 8px;
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
 }
 
-.popup-view, .popup-view .ember-view {
-  /*position: relative;*/
-}
-
-.leaflet-popup-content {
-  width:300px !important;
-}
 
 @import "ember-material-design";
