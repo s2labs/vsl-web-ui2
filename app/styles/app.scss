@@ -1,0 +1,40 @@
+/* http://stackoverflow.com/questions/12046315/prevent-overscrolling-of-web-page */
+
+html {
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    overflow: auto;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}
+
+
+.leaflet-grid-label .lng {
+    margin-left: 8px;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.popup-view, .popup-view .ember-view {
+  /*position: relative;*/
+}
+
+.leaflet-popup-content {
+  width:300px !important;
+}
+
+@import "ember-material-design";
