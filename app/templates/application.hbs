@@ -1,1 +1,23 @@
-{{outlet}}
+<div layout="column" role="main" flex tabindex="-1">
+
+  {{#md-toolbar}}
+      <div class="md-toolbar-tools">
+      <!--
+        {{#md-button class="md-icon-button"}}
+          {{md-icon md-svg-icon="images/icons/menu.svg"}}
+        {{/md-button}} -->
+          <h2>TUM MI building <small class=".md-caption"> (2.0-alpha1)</small></h2>
+          
+          <span flex></span>
+
+        {{#md-button class="md-icon-button"}}
+          {{md-icon md-svg-icon="images/icons/more_vert.svg"}}
+        {{/md-button}}
+      </div>
+  {{/md-toolbar}}
+
+
+<md-content flex>
+  {{outlet}}
+</md-content>
+</div>
