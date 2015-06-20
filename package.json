@@ -22,6 +22,7 @@
     "broccoli-asset-rev": "^2.0.2",
     "ember-cli": "0.2.7",
     "ember-cli-app-version": "0.3.3",
+    "ember-cli-autoprefixer": "0.4.1",
     "ember-cli-babel": "^5.0.0",
     "ember-cli-content-security-policy": "0.4.0",
     "ember-cli-dependency-checker": "1.0.0",
@@ -35,6 +36,10 @@
     "ember-disable-proxy-controllers": "^0.7.0",
     "ember-export-application-global": "^1.0.2",
     "ember-leaflet": "git://github.com/gabesmed/ember-leaflet.git#ember-cli-es6",
+    "ember-material-design": "0.7.1",
     "install": "^0.1.8"
+  },
+  "dependencies": {
+    "ember-material-design": "^0.7.1"
   }
 }
