@@ -17,7 +17,7 @@ var app = new EmberApp();
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
-app.import('bower_components/Leaflet.Grid/L.Grid.js')
-app.import('bower_components/Leaflet.Coordinates/dist/Leaflet.Coordinates-0.1.4.min.js')
+//app.import('bower_components/Leaflet.Grid/L.Grid.js')
+app.import('bower_components/leaflet.coordinates/dist/Leaflet.Coordinates-0.1.4.min.js')
 
 module.exports = app.toTree();
