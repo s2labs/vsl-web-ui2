@@ -22,11 +22,11 @@ export default EmberLeafletComponent.extend({
   didCreateLayer: function() {
     this._super();
     //L.control.layers(this.childLayers[1]).addTo(this._layer);
-    L.control.scale().addTo(this._layer);
+    //L.control.scale().addTo(this._layer);
     L.control.coordinates({
       position:"bottomleft", //optional default "bootomright"
       //decimals:6, //optional default 4
-      enableUserInput: true, //optional default true
+      enableUserInput: false, //optional default true
       useLatLngOrder: true //ordering of labels, default false-> lng-lat
     }).addTo(this._layer);
   },
@@ -40,7 +40,8 @@ export default EmberLeafletComponent.extend({
   
 
     TileLayer.extend({
-      tileUrl: 'http://ds2os-web/img/maps/fmi/{z}/{y}_{x}.png',
+      //tileUrl: 'http://ds2os-web/img/maps/fmi/{z}/{y}_{x}.png',
+      tileUrl: '/assets/fmi/{z}/{y}_{x}.png',
       options: {
         minZoom: 3, maxZoom: 7
         //bounds: [ [48.2611572, 11.6652150], [48.263605, 11.6692725]] // Values from old webinterface, lines 5650 ff

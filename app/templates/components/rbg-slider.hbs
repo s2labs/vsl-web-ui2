@@ -1,0 +1,23 @@
+<md-content flex>
+    <h3>
+        RGB <span style={{colorStyle}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </h3>
+    <div layout>
+        <div flex="10" layout layout-align="center center">
+            <span>R</span>
+        </div>
+        {{md-slider flex='' min='0' max='255' value=color.red}}
+    </div>
+    <div layout>
+        <div flex="10" layout layout-align="center center">
+            <span>G</span>
+        </div>
+        {{md-slider flex='' min='0' max='255' value=color.green}}
+    </div>
+    <div layout>
+        <div flex="10" layout layout-align="center center">
+            <span>B</span>
+        </div>
+        {{md-slider flex='' min='0' max='255' value=color.blue}}
+    </div>
+</md-content>

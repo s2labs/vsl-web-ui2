@@ -17,7 +17,8 @@ export default EmberLeafletComponent.extend({
   },
   childLayers: [
     TileLayer.extend({
-      tileUrl: 'http://ds2os-web/img/maps/fmi/{z}/{y}_{x}.png',
+      /*tileUrl: 'http://ds2os-web/img/maps/fmi/{z}/{y}_{x}.png',*/
+      tileUrl: '/assets/maps/fmi/{z}/{y}_{x}.png',
       options: {
         minZoom: 3, maxZoom: 7
         //bounds: [ [48.2611572, 11.6652150], [48.263605, 11.6692725]] // Values from old webinterface, lines 5650 ff

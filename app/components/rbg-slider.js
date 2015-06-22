@@ -1,0 +1,1 @@
+../../../ds2os-base/addon/components/rbg-slider.js
