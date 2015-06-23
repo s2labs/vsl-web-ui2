@@ -6,7 +6,6 @@ html {
 }
 
 body {
-  height: 100%;
   overflow: auto;
 }
 
@@ -15,11 +14,21 @@ html, body {
   margin: 0;
 }
 
+body, .ember-app {
+  height: 100%;
+  width: 100%;
+}
+
+/* Workaround for layout="column" on main div for iOS Safari */
+.ember-app {
+  display: flex; 
+  flex-direction: column;
+}
 
 .leaflet-container {
   height: 100%;
   width: 100%;
-  position: absolute;
+  position: fixed;
 }
 
 
