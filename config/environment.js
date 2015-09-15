@@ -2,16 +2,16 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'ember-cli-leaflet-example',
+    modulePrefix: 'ds2os-web',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
 
     contentSecurityPolicy: {
       'default-src': "'none'",
-      'script-src': "'self'",
+      'script-src': "'self' localhost:4201",
       'font-src': "'self' https://fonts.gstatic.com",
-      'connect-src': "'self'",
+      'connect-src': "'self' localhost:5000",
       'img-src': "'self' data: *.tiles.mapbox.com *.tile.osm.org ds2os-web",
       'style-src': "'self' 'unsafe-inline'",
       'media-src': "'self'"

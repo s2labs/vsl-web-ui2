@@ -1,29 +1,39 @@
-/* global L */
 import DS from 'ember-data';
+import Dobject from 'ds2os-web/models/dobject';
 
-var Device = DS.Model.extend({
-  title: DS.attr('string'),
-  location: DS.attr(),
+var Device = Dobject.extend({
+  //geometry: DS.attr(''),
+  location: DS.attr('coordinate'), // [76.7907, -93.2402] 
+  
+  /*
+  latLng: function() {
+
+    l = this.get('location');
+    return l; //L.latLng(l[0], l[1]);
+  }.property('location')
+  */
 });
 
+/*
 Device.reopenClass({
     FIXTURES: [
         {
            id: 1,
-           title: 'lamp 1',
+           name: 'lamp 1',
            location: L.latLng(70.7907, -92.2302),
          },
          {
            id: 2,
-           title: 'dimmable lamp 2',
+           name: 'dimmable lamp 2',
            location: L.latLng(76.7907, -93.2402),
          },
          {
            id: 3,
-           title: 'colored lamp 3',
+           name: 'colored lamp 3',
            location: L.latLng(74.7907, -92.2302),
          }
     ]
 });
+*/
 
 export default Device;
