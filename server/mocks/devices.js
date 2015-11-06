@@ -1,37 +1,69 @@
 module.exports = function(app) {
-  var express = require('express');
-  var devicesRouter = express.Router();
-  var request = require('request');
-  var xml2js = require('xml2js');
-  var parser = new xml2js.Parser();
+  var express = require('express')
+    , bodyParser = require('body-parser')
+    , devicesRouter = express.Router()
+    , request = require('request')
+    , fs = require('fs')
+    , path = require('path')
+    , certFile = path.resolve(__dirname, '../ssl/system.p12')
+    , caFile = path.resolve(__dirname, '../ssl/ca.crt');
+  
+  // from http://stackoverflow.com/questions/10888610/ignore-invalid-self-signed-ssl-certificate-in-node-js-with-https-request
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-  function ds2os_request(params, callback) {
-    var url = 'http://localhost/ds2os/?'+params;
-    console.dir(url);
-    request(url, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        parser.parseString(body, function (err, result) {
-          callback(Boolean(result['message']['error']), result['message']['result']);
-        });
+  // parse application/json
+  app.use(bodyParser.json())
+
+
+  // TODO: folgende Methode in einene Klasse auslagern, die ggf. request ueberlagert.
+  // cool waeren aufrufe wie 
+  // ds2os.ka.get('system/geoservice/locationOf/*', callback)
+  // ds2os.ka.put('system/geoservice/locationOf/', body)
+
+  // see https://github.com/request/request/blob/master/README.md for documentation
+  function ds2os_request(method, params, method_callback, body) {
+    var options = {
+      url: 'https://localhost:8088/localKA/'+params,
+      method: method,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      agentOptions: {
+        ca: fs.readFileSync(caFile),
+        pfx: fs.readFileSync(certFile),
+        passphrase: 'K3yst0r3'
+      },
+      body: JSON.stringify(body)
+    };
+    console.dir(options.url);
+    
+    function callback (error, response, body) {
+      if (!error && response.statusCode == 200 ) {
+        method_callback(error, JSON.parse(body));
+      } else if (!error && response.statusCode == 204 ) {
+        method_callback(error, "");
       } else {
-        console.dir("unexpected result from ds2os xml servlet:\n" + body);
+        console.dir("unexpected result:");
+        console.dir("  " + response.statusCode + " " + error);
       }
-    });
+    }
+    
+    request(options, callback);
+  }
+  
+  function parse_location(node) {
+    return node['value'].split(" ", 3).map(parseFloat);
   }
 
   devicesRouter.get('/', function(req, res) {
-    ds2os_request('op=get&address=/agent_andi1/geoSearch/locationOf/*',
+    ds2os_request('GET', 'system/geoservice/locationOf/*',
       function (err, result) {
-        var devices = result[0].trim().split("\n");
-        var out = { 'devices': [] }, line;
+        var out = { 'devices': [] };
 
-        for ( var i in devices) {
-          // TODO: does this also work with 2D coordinates, or do we have to add a .trim() to the following line?
-          line = devices[i].split(" ", 4);
-
+        for ( var key in result['children']) {
           out['devices'].push({
-            'id': line.shift(), // shift pops first element from list
-            'location': line.map(parseFloat)    // rest of the line are coordinates, convert to float
+            'id': key,
+            'location': parse_location(result['children'][key])  
           });
         }
         res.send(out);
@@ -43,26 +75,30 @@ module.exports = function(app) {
     res.status(201).end();
   });
 
-  devicesRouter.get('/:path', function(req, res) {
-    ds2os_request('op=get&address=/agent_andi1/' + req.params.path + '/', function (err, result) {
-      //console.dir(result);
+  devicesRouter.get('/:id', function(req, res) {
+    var id = req.params.id;
+    ds2os_request('GET', 'system/geoservice/locationOf/' + id, function (err, result) {
       res.send({
-        'devices': result
+        'devices': [ { 'id' : id, 'location': parse_location(result) }]
       });
     });
   });
 
   devicesRouter.put('/:id', function(req, res) {
-    res.send({
-      'devices': {
-        id: req.params.id
-      }
-    });
+    var id = req.params.id;
+    console.dir(req.body['device']['location']);
+    
+    var body = { 'value': req.body['device']['location'].join(" ") };
+    
+    ds2os_request('PUT', 'system/geoservice/locationOf/' + id, function (err, result) {
+      res.status(204).end(); 
+    }, body);
   });
 
   devicesRouter.delete('/:id', function(req, res) {
     res.status(204).end();
   });
+
 
   app.use('/api/devices', devicesRouter);
 };

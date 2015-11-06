@@ -19,6 +19,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "body-parser": "^1.14.1",
     "broccoli-asset-rev": "^2.0.2",
     "broccoli-autoprefixer": "^3.0.0",
     "broccoli-sass": "^0.6.6",
