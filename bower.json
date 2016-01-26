@@ -9,13 +9,13 @@
     "ember-qunit": "0.3.2",
     "ember-qunit-notifications": "0.0.7",
     "ember-resolver": "~0.1.15",
-    "jquery": "^1.11.1",
+    "jquery": "1.11.1",
     "loader.js": "ember-cli/loader.js#3.2.1",
     "qunit": "~1.17.1",
-    "leaflet": "~0.7.3",
     "leaflet.markercluster": "~0.4.0",
     "leaflet.coordinates": "MrMufflon/Leaflet.Coordinates",
     "hammerjs": "~2.0.4",
-    "matchMedia": "~0.2.0"
+    "matchMedia": "~0.2.0",
+    "leaflet": "~0.7.7"
   }
 }
