@@ -1,4 +1,14 @@
-{{leaflet-map model=model flex=""}}
+{{#leaflet-map center=center zoom=zoom}}
+  {{!-- Specify child layer components here --}}
+  {{tile-layer url="./img/maps/fmi/{z}/{y}_{x}.png" minZoom="3" maxZoom="7" }}
+  
+  {{#each model as |d|}}
+    {{#marker-layer lat=d.location.lat lng=d.location.lng draggable=true onDragend=(action "updateLocation" d)}}
+      <h3>{{d.title}}</h3>
+      
+    {{/marker-layer}}
+  {{/each}}
+{{/leaflet-map}}
 
 <!--ul style="position: absolute;">
   {{#each model as |d|}}

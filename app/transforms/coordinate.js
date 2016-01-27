@@ -1,8 +1,9 @@
 import DS from 'ember-data';
+/* global L */
 
 export default DS.Transform.extend({
   deserialize: function(value) {
-    return value;
+    return L.latLng(value);
   },
 
   serialize: function(value) {
