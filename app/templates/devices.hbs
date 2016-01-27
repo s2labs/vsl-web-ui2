@@ -1,7 +1,7 @@
 {{leaflet-map model=model flex=""}}
 
 <!--ul style="position: absolute;">
-  {{#each device in model}}
-  <li>{{device.title}}</li>
+  {{#each model as |d|}}
+  <li>{{d.id}} {{d.location}}</li>
   {{/each}}
-</ul-->
+</ul -->
