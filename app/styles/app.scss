@@ -14,13 +14,13 @@ html, body {
   margin: 0;
 }
 
-body, .ember-app {
+body, body + div {
   height: 100%;
   width: 100%;
 }
 
 /* Workaround for layout="column" on main div for iOS Safari */
-.ember-app {
+body + div {
   display: flex; 
   flex-direction: column;
 }
