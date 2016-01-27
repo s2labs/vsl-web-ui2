@@ -44,7 +44,7 @@ module.exports = function(app) {
         method_callback(error, "");
       } else {
         console.dir("unexpected result:");
-        console.dir("  " + response.statusCode + " " + error);
+        console.dir("  " + error);
       }
     }
     
