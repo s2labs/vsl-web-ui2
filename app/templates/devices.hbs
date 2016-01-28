@@ -6,6 +6,13 @@
     {{#marker-layer lat=d.location.lat lng=d.location.lng draggable=true onDragend=(action "updateLocation" d)}}
       <h3>{{d.title}}</h3>
       
+      {{d.type}}
+      
+      {{rgb-slider}}
+      
+      {{#paper-button}}Button{{/paper-button}}
+      
+      {{paper-switch}}
     {{/marker-layer}}
   {{/each}}
 {{/leaflet-map}}
