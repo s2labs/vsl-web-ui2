@@ -1,29 +1,8 @@
 
-html {
-  /* http://stackoverflow.com/questions/12046315/prevent-overscrolling-of-web-page */
-  overflow: hidden;
-  height: 100%;
-}
-
-body {
-  overflow: auto;
-}
-
-html, body {
-  padding: 0;
-  margin: 0;
-}
-
-body, body + div {
-  height: 100%;
-  width: 100%;
-}
-
-/* Workaround for layout="column" on main div for iOS Safari */
-body + div {
-  display: flex; 
-  flex-direction: column;
-}
+/* Workaround for iOS Safari */
+md-content {
+  -webkit-overflow-scrolling: auto !important;
+} 
 
 .leaflet-container {
   height: 100%;
