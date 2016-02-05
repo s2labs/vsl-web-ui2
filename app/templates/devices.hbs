@@ -3,8 +3,8 @@
   {{tile-layer url="./img/maps/fmi/{z}/{y}_{x}.png" minZoom="3" maxZoom="7" }}
   
   {{#each model as |d|}}
-    {{#marker-layer lat=d.location.lat lng=d.location.lng draggable=true onDragend=(action "updateLocation" d)}}
-      <h3>{{d.title}}</h3>
+    {{#marker-layer lat=d.location.lat lng=d.location.lng draggable=true onDragend=(action "updateLocation" d)}} 
+      <h3>ID: {{d.id}}</h3>
       
       {{d.type}}
       
