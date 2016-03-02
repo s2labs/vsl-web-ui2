@@ -3,7 +3,7 @@
   {{tile-layer url="./img/maps/fmi/{z}/{y}_{x}.png" minZoom="3" maxZoom="7" }}
   
   {{#each model as |p|}}
-    {{#marker-layer lat=p.location.lat lng=p.location.lng draggable=true onDragend=(action "updateLocation" d)}} 
+    {{#marker-layer lat=p.location.lat lng=p.location.lng draggable=true onDragend=(action "updateLocation" p)}} 
       <h3>{{p.id}} [{{p.device.type}}]</h3>
       
       <!-- {{gahu-lamp device=d.device}} -->
