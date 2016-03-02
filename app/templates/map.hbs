@@ -1,0 +1,24 @@
+{{#leaflet-map center=center zoom=zoom}}
+  {{!-- Specify child layer components here --}}
+  {{tile-layer url="./img/maps/fmi/{z}/{y}_{x}.png" minZoom="3" maxZoom="7" }}
+  
+  {{#each model as |p|}}
+    {{#marker-layer lat=p.location.lat lng=p.location.lng draggable=true onDragend=(action "updateLocation" d)}} 
+      <h3>{{p.id}} [{{p.device.type}}]</h3>
+      
+      <!-- {{gahu-lamp device=d.device}} -->
+      <!-- {{rgb-slider}}      
+      {{#paper-button}}Button{{/paper-button}} -->
+      
+      {{#each p.device.children as |c|}}
+        {{#paper-switch checked=c.value onChange=(action "update" c)}} {{c.name}} {{c.value}} {{/paper-switch}}
+      {{/each}}
+    {{/marker-layer}}
+  {{/each}}
+{{/leaflet-map}}
+
+<!--ul style="position: absolute;">
+  {{#each model as |d|}}
+  <li>{{p.id}} {{p.location}}</li>
+  {{/each}}
+</ul -->

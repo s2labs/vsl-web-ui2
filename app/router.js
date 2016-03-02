@@ -6,7 +6,7 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('devices', { path: '/'});
+  this.route('map', { path: '/'});
   this.route('test', { path: '/test'});
 });
 
