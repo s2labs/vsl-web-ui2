@@ -1,10 +1,9 @@
 import DS from 'ember-data';
-import Dobject from 'ds2os-web/models/dobject';
 
-var Device = Dobject.extend({
+var Location = DS.Model.extend({
   //geometry: DS.attr(''),
-  //location: DS.attr('coordinate'), // [76.7907, -93.2402] 
-  position: DS.belongsTo('position')
+  location: DS.attr('coordinate'), // [76.7907, -93.2402] 
+  device: DS.belongsTo('device'),
   
   /*
   latLng: function() {
@@ -37,4 +36,4 @@ Device.reopenClass({
 });
 */
 
-export default Device;
+export default Location;

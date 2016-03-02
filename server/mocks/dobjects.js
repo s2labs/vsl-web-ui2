@@ -1,7 +1,7 @@
 module.exports = function(app) {
   var express = require('express')
     , bodyParser = require('body-parser')
-    , devicesRouter = express.Router()
+    , dobjectsRouter = express.Router()
     , request = require('request')
     , fs = require('fs')
     , path = require('path')
@@ -52,22 +52,22 @@ module.exports = function(app) {
     request(options, callback);
   }
   
-  devicesRouter.post('/', function(req, res) {
+  dobjectsRouter.post('/', function(req, res) {
     res.status(201).end();
   });
 
-  devicesRouter.get('/:id', function(req, res) {
+  dobjectsRouter.get('/:id', function(req, res) {
     var id = req.params.id;
     ds2os_request('GET', 'agent2/gateway1/' + id, function (err, result) {
     /*
       result['id'] = id;
       res.send({
-        'devices': [ result ]
+        'dobjects': [ result ]
       });
       */
-      var out = { 'devices': [], 'dobjects': [] };
+      var out = { 'dobjects': [], 'dobjects': [] };
       var device = {'id' : id};
-      out['devices'].push(device);
+      out['dobjects'].push(device);
       
       for ( var key in result) {
         if ( key != 'children' ) {
@@ -107,21 +107,23 @@ module.exports = function(app) {
     
   });
 
-  devicesRouter.put('/:id', function(req, res) {
+  dobjectsRouter.put('/:id', function(req, res) {
     var id = req.params.id;
-    console.dir(req.body['device']);
+    console.dir(req.body['dobject']);
     
-    var body = { 'value': req.body['device'] };
+    var body = { 'value': req.body['dobject']['value'] };
     
-    ds2os_request('PUT', 'agent2/gateway1/' + id, function (err, result) {
+    
+    
+    ds2os_request('PUT', 'agent2/gateway1/' + id.replace("_", "/") + "/desired", function (err, result) {
       res.status(204).end(); 
     }, body);
   });
 
-  devicesRouter.delete('/:id', function(req, res) {
+  dobjectsRouter.delete('/:id', function(req, res) {
     res.status(204).end();
   });
 
 
-  app.use('/api/devices', devicesRouter);
+  app.use('/api/dobjects', dobjectsRouter);
 };
