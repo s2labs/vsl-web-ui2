@@ -1,0 +1,10 @@
+<ul>
+  {{#each model as |p|}}
+<li>
+      <h3>{{p.id}} [{{p.device.type}}]</h3>
+      {{#each p.device.children as |c|}}
+        {{#paper-switch checked=c.value onChange=(action "update" c)}} {{c.name}} {{c.value}} {{/paper-switch}}
+      {{/each}}
+</li>
+  {{/each}}
+</ul>
