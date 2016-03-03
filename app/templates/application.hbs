@@ -9,6 +9,12 @@
       {{/md-button}} -->
         <h2>TUM MI building <small class=".md-caption"> (2.0-alpha3)</small></h2>
         
+        {{#paper-button action=(transition-to 'map')}}Map{{/paper-button}}
+        {{#paper-button action=(transition-to 'list')}}List{{/paper-button}}
+        {{#paper-button action=(transition-to 'test')}}Test{{/paper-button}}
+
+        <!-- {{#link-to 'test'}}Test{{/link-to}} -->
+        
         <span flex></span>
 
         {{#paper-button classNames="md-icon-button"}}
