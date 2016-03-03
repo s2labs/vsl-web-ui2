@@ -28,7 +28,7 @@ function VSL(ka_num, keyPath, caPath) {
 };
 
 
-VSL.prototype.request = function (method, params, method_callback, body) {
+VSL.prototype.request = function (method, params, callback, body) {
   var options = {
     url: 'https://localhost:' + this.port +'/'+params,
     method: method,
@@ -42,28 +42,26 @@ VSL.prototype.request = function (method, params, method_callback, body) {
     },
     body: JSON.stringify(body)
   };
-  console.dir(options.url);
+  console.dir("  " + method + " " + options.url);
   
-  function callback (error, response, body) {
+  // see https://github.com/request/request/blob/master/README.md for documentation
+  http_request(options, function (error, response, body) {
     if (!error && response.statusCode == 200 ) {
-      method_callback(error, JSON.parse(body));
+      callback(error, JSON.parse(body));
     } else if (!error && response.statusCode == 204 ) {
-      method_callback(error, "");
+      callback(error, "");
     } else {
       console.dir("unexpected result:");
       console.dir("  " + error);
     }
-  }
-  
-  // see https://github.com/request/request/blob/master/README.md for documentation
-  http_request(options, callback);
-}
+  });
+};
 
 VSL.prototype.get = function (params, callback) {
   return this.request('GET', params, callback)
-}
-      
+};
+
 VSL.prototype.set = function (params, body, callback) {
   return this.request('PUT', params, callback, body);
-}
+};
 

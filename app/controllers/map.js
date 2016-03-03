@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
     },
 
     // http://discuss.emberjs.com/t/how-to-update-item-without-using-save-button-option/8529/4
-    update: function(c){
+    update: function(/*c*/){
         console.log("update on map controller");
         //c.save();
     }

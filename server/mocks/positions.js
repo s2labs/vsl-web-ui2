@@ -48,9 +48,6 @@ module.exports = function(app) {
     );
   });
 
-   positionsRouter.delete('/:id', function(req, res) {
-    res.status(204).end();
-  });
 
 
   app.use('/api/positions',  positionsRouter);
