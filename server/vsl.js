@@ -23,7 +23,7 @@ function VSL(ka_num, keyPath, caPath) {
   this.keyFile = fs.readFileSync(path.resolve(__dirname, keyPath));
   this.caFile = fs.readFileSync(path.resolve(__dirname, caPath));
 
-  if ( ka_num == undefined ) ka_num = 8;
+  if ( ka_num == undefined ) ka_num = 1;
   this.port = '808' + ka_num;
 };
 
@@ -42,7 +42,7 @@ VSL.prototype.request = function (method, params, callback, body) {
     },
     body: JSON.stringify(body)
   };
-  console.dir("  " + method + " " + options.url);
+  console.log("  " + method + " " + options.url);
   
   // see https://github.com/request/request/blob/master/README.md for documentation
   http_request(options, function (error, response, body) {
@@ -51,8 +51,10 @@ VSL.prototype.request = function (method, params, callback, body) {
     } else if (!error && response.statusCode == 204 ) {
       callback(error, "");
     } else {
-      console.dir("unexpected result:");
-      console.dir("  " + error);
+      console.log("  unexpected response from KA:");
+      if ( error ) console.log("    " + body);
+      if ( body ) console.log("    " + body);
+      
     }
   });
 };
