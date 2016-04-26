@@ -29,8 +29,14 @@ function VSL(ka_num, keyPath, caPath) {
 
 
 VSL.prototype.request = function (method, params, callback, body) {
+  var path = params;
+  // ensure path is starting with a slash
+  if (path[0] != "/") {
+    path =  "/" + path;
+  }
+  
   var options = {
-    url: 'https://localhost:' + this.port +'/'+params,
+    url: 'https://localhost:' + this.port + path,
     method: method,
     headers: {
       'Content-Type': 'application/json'
@@ -54,16 +60,25 @@ VSL.prototype.request = function (method, params, callback, body) {
       console.log("  unexpected response from KA:");
       if ( error ) console.log("    " + body);
       if ( body ) console.log("    " + body);
-      
+      console.log("  request was " + method + " " + options.url);
+      callback(error, body);
     }
   });
 };
 
 VSL.prototype.get = function (params, callback) {
+  // unescape slashes: replace all _ with /
+  return this.request('GET', params.replace(/_/g, "/"), callback)
+};
+VSL.prototype.get_raw = function (params, callback) {
   return this.request('GET', params, callback)
 };
 
 VSL.prototype.set = function (params, body, callback) {
+  // unescape slashes: replace all _ with /
+  return this.request('PUT', params.replace(/_/g, "/"), callback, body);
+};
+VSL.prototype.set_raw = function (params, body, callback) {
   return this.request('PUT', params, callback, body);
 };
 

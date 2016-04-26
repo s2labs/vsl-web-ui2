@@ -9,16 +9,18 @@ module.exports = function(app) {
   }
 
   positionsRouter.get('/', function(req, res) {
-    vsl.get('agent2/geoservice/locationOf/*',
+    vsl.get('/agent2/geoservice/locationOf/*',
       function (err, result) {
         var out = { 'positions': [] };
 
-        for ( var key in result['children']) {
-          out['positions'].push({
-            'id': key,
-            'location': parse_location(result['children'][key]),
-            'device': key  
-          });
+        if (result) {
+          for ( var key in result['children']) {
+            out['positions'].push({
+              'id': key,
+              'location': parse_location(result['children'][key]),
+              'device': key  
+            });
+          }
         }
         res.send(out);
       }
@@ -31,7 +33,7 @@ module.exports = function(app) {
 
   positionsRouter.get('/:id', function(req, res) {
     var id = req.params.id;
-    vsl.get('agent2/geoservice/locationOf/' + id, function (err, result) {
+    vsl.get_raw('/agent2/geoservice/locationOf/' + id, function (err, result) {
       res.send({
         'positions': [ { 'id' : id, 'location': parse_location(result) }]
       });
@@ -42,7 +44,7 @@ module.exports = function(app) {
     var id = req.params.id;
     console.dir(req.body['position']['location']);
     
-    vsl.set('agent2/geoservice/locationOf/' + id, 
+    vsl.set_raw('/agent2/geoservice/locationOf/' + id, 
       { 'value': req.body['position']['location'].join(" ") },
       function () { res.status(204).end(); }
     );

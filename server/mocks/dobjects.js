@@ -8,7 +8,10 @@ module.exports = function(app) {
 
   dobjectsRouter.get('/:id', function(req, res) {
     var id = req.params.id;
-    vsl.get('agent2/gateway1/' + id, function (err, result) {
+    
+
+    
+    vsl.get(id.replace("_", "/"), function (err, result) {
 
       var out = { 'dobjects': [] };
       var device = {'id' : id};
@@ -58,7 +61,7 @@ module.exports = function(app) {
     
     // TODO das mit /desired anhaengen hinten funktioniert nur weil das WebUI bisher noch keine anderen Nodes als isOn bearbeitet.
     // das sollte eigentlich im Model oder Controller gemacht werden
-    vsl.set('agent2/gateway1/' + id.replace("_", "/") + "/desired", 
+    vsl.set(id + "/desired", 
       { 'value': req.body['dobject']['value'] }, function (err, result) { 
         res.status(204).end(); 
     });

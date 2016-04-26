@@ -19,7 +19,9 @@ module.exports = function(app) {
 
   devicesRouter.get('/:id', function(req, res) {
     var id = req.params.id;
-    vsl.get('agent2/gateway1/' + id, function (err, result) {
+    
+    
+    vsl.get(id, function (err, result) {
     /*
       result['id'] = id;
       res.send({
@@ -56,7 +58,7 @@ module.exports = function(app) {
       }
       
       // if node contains children
-      if (result['children']) {
+      if (result && result['children']) {
         device['children'] = [];
         for ( var name in result['children']) {
           device['children'].push(id + '_' + name);
@@ -73,7 +75,7 @@ module.exports = function(app) {
     var id = req.params.id;
     console.dir(req.body['device']);
     
-    vsl.set('agent2/gateway1/' + id, 
+    vsl.set(id, 
        { 'value': req.body['device'] },
        function () { res.status(204).end(); }
     );
