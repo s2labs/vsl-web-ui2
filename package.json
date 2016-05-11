@@ -36,7 +36,7 @@
     "ember-disable-proxy-controllers": "^0.7.0",
     "ember-export-application-global": "^1.0.2",
     "ember-getowner-polyfill": "1.0.0",
-    "ember-leaflet": "2.1.2",
+    "ember-leaflet": "2.2.3",
     "ember-paper": "^0.2.4",
     "ember-route-action": "0.0.5",
     "express": "^4.13.1",
