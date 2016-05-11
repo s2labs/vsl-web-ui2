@@ -3,7 +3,7 @@
 <li>
       <h3>{{p.id}} [{{p.device.type}}]</h3>
       {{#each p.device.children as |c|}}
-        {{#paper-switch checked=c.value onChange=(action "update" c)}} {{c.name}} {{c.value}} {{/paper-switch}}
+        {{device-renderer c=c}}
       {{/each}}
 </li>
   {{/each}}

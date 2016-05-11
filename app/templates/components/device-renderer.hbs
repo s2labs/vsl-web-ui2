@@ -1,0 +1,5 @@
+{{#if c.isSlider }}
+  {{paper-slider min='0' max='100' value=c.value}} {{c.name}} {{c.value}}
+{{else}}
+  {{#paper-switch checked=c.value}} {{c.name}} {{c.value}} {{/paper-switch}}
+{{/if}}
