@@ -1,10 +1,8 @@
 <ul>
   {{#each model as |p|}}
 <li>
-      <h3>{{p.id}} [{{p.device.type}}]</h3>
-      {{#each p.device.children as |c|}}
-        {{device-renderer c=c}}
-      {{/each}}
+      <h3 title="{{p.id}} {{p.device.type}}">{{p.device.name}} <!--[{{p.device.type}}]--></h3>
+      {{basic-composed c=p.device}}
 </li>
   {{/each}}
 </ul>

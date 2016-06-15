@@ -3,16 +3,11 @@
   {{tile-layer url="/static/fmi/{z}/{y}_{x}.png" minZoom="3" maxZoom="7" }}
   
   {{#each model as |p|}}
-    {{#marker-layer lat=p.location.lat lng=p.location.lng draggable=true onDragend=(action "updateLocation" p)}} 
-      <h3>{{p.id}} [{{p.device.type}}]</h3>
+    {{#marker-layer lat=p.location.lat lng=p.location.lng draggable=true onDragend=(action "updateLocation" p) icon=p.device.icon}} 
+      <h3 title="{{p.device.type}}">{{p.device.name}} <!--[{{p.device.type}}]--></h3>
       
-      <!-- {{gahu-lamp device=d.device}} -->
-      <!-- {{rgb-slider}}      
-      {{#paper-button}}Button{{/paper-button}} -->
-      
-      {{#each p.device.children as |c|}}
-         {{device-renderer c=c}}
-      {{/each}}
+      {{basic-composed c=p.device}}
+
     {{/marker-layer}}
   {{/each}}
 {{/leaflet-map}}

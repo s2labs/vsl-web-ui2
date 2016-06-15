@@ -5,6 +5,8 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
-
+includes: function() {
+    return this.get('type').includes('/derived/percent');
+  }.property('type'),
 
 });
