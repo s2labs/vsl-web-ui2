@@ -3,7 +3,7 @@ module.exports = function(app) {
     , bodyParser = require('body-parser')
     , devicesRouter = express.Router()
     , VSL = require(__dirname + '/../vsl.js')
-    , vsl = new VSL(2, '/Users/andi/Projekte/MA/git/vsl/java6-ka/system.p12', '/Users/andi/Projekte/MA/git/vsl/java6-ka/ca.crt');
+    , vsl = new VSL(2);
   
   
   // from http://stackoverflow.com/questions/10888610/ignore-invalid-self-signed-ssl-certificate-in-node-js-with-https-request

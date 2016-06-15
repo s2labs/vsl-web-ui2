@@ -2,7 +2,7 @@ module.exports = function(app) {
   var express = require('express')
     , positionsRouter = express.Router()
     , VSL = require(__dirname + '/../vsl.js')
-    , vsl = new VSL(2, '/Users/andi/Projekte/MA/git/vsl/java6-ka/system.p12', '/Users/andi/Projekte/MA/git/vsl/java6-ka/ca.crt');
+    , vsl = new VSL(2);
   
   function parse_location(node) {
     return node['value'].split(" ", 3).map(parseFloat);

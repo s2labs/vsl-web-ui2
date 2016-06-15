@@ -2,9 +2,7 @@ module.exports = function(app) {
   var express = require('express')
     , dobjectsRouter = express.Router()
     , VSL = require(__dirname + '/../vsl.js')
-    , vsl = new VSL(2, '/Users/andi/Projekte/MA/git/vsl/java6-ka/system.p12', '/Users/andi/Projekte/MA/git/vsl/java6-ka/ca.crt');
- 
- 
+    , vsl = new VSL(2);
 
   dobjectsRouter.get('/:id', function(req, res) {
     var id = req.params.id;
