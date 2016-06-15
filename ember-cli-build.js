@@ -30,10 +30,22 @@ module.exports = function(defaults) {
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
-
+// see also https://guides.emberjs.com/v2.5.0/addons-and-dependencies/managing-dependencies/
 
     //app.import('bower_components/Leaflet.Grid/L.Grid.js')
-    app.import('bower_components/leaflet.coordinates/dist/Leaflet.Coordinates-0.1.5.min.js')
-
+    app.import('bower_components/leaflet.coordinates/dist/Leaflet.Coordinates-0.1.5.min.js');
+    
+    // TODO http://stackoverflow.com/a/29480973
+    app.import('bower_components/leaflet.extra-markers/dist/js/leaflet.extra-markers.min.js');
+    app.import('bower_components/leaflet.extra-markers/dist/css/leaflet.extra-markers.min.css');
+    app.import('bower_components/leaflet.extra-markers/dist/img/markers_default.png', {destDir: 'img'});
+    app.import('bower_components/leaflet.extra-markers/dist/img/markers_shadow.png', {destDir: 'img'});
+    app.import('bower_components/leaflet.extra-markers/dist/img/markers_default@2x.png', {destDir: 'img'});
+    app.import('bower_components/leaflet.extra-markers/dist/img/markers_shadow@2x.png', {destDir: 'img'});
+    
+    
+    //app.import('bower_components/svg-injector/dist/svg-injector.min.js');
+    
+    app.import('bower_components/knx-uf-iconset/raw_480x480/fts_shutter.png', {destDir: 'img'});
     return app.toTree();
 };

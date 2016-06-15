@@ -1,40 +1,34 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 import Dobject from 'ds2os-web/models/dobject';
 
 var Device = Dobject.extend({
-  //geometry: DS.attr(''),
-  //location: DS.attr('coordinate'), // [76.7907, -93.2402] 
-  position: DS.belongsTo('position')
+  position: DS.belongsTo('position'),
+  type: DS.attr(''),
   
-  /*
-  latLng: function() {
-
-    l = this.get('location');
-    return l; //L.latLng(l[0], l[1]);
-  }.property('location')
-  */
+  icon:  Ember.computed('type', function() {
+    var type = this.get('type');
+    if ( type ) {
+      //https://github.com/coryasilva/Leaflet.ExtraMarkers#properties
+      var options = {
+        markerColor: 'white',
+        shape: 'circle',
+        //innerHTML: '<img src="img/fts_shutter.png" width="32" />'
+      };
+      if ( type.includes('gahu/blind') ) {
+        options = {
+          markerColor: 'cyan',
+          shape: 'square',
+          innerHTML: '<img src="img/fts_shutter.png" width="32" />'
+        };
+      }
+      
+      return new L.ExtraMarkers.icon(options);
+    }
+    else {
+      return new L.Icon.Default();
+    }
+  })
 });
-
-/*
-Device.reopenClass({
-    FIXTURES: [
-        {
-           id: 1,
-           name: 'lamp 1',
-           location: L.latLng(70.7907, -92.2302),
-         },
-         {
-           id: 2,
-           name: 'dimmable lamp 2',
-           location: L.latLng(76.7907, -93.2402),
-         },
-         {
-           id: 3,
-           name: 'colored lamp 3',
-           location: L.latLng(74.7907, -92.2302),
-         }
-    ]
-});
-*/
 
 export default Device;

@@ -16,6 +16,8 @@
     "leaflet.coordinates": "MrMufflon/Leaflet.Coordinates",
     "hammerjs": "~2.0.4",
     "matchMedia": "~0.2.0",
-    "leaflet": "1.0.0-rc.1"
+    "leaflet": "1.0.0-rc.1",
+    "Leaflet.extra-markers": "coryasilva/Leaflet.ExtraMarkers#1.0.6",
+    "knx-uf-iconset": "OpenAutomationProject/knx-uf-iconset"
   }
 }
