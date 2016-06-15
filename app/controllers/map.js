@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 //center: {lat: 48.2628, lng: 11.6685},
-  center: {lat: 80.5, lng: -84},
+  center: {lat: 80, lng: -69},
   zoom: 6, 
 
 
