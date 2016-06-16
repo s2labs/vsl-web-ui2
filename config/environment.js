@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'ds2os-web',
+    modulePrefix: 'web-ui2',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',

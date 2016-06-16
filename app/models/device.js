@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
-import Dobject from 'ds2os-web/models/dobject';
+import Dobject from 'web-ui2/models/dobject';
 
 var Device = Dobject.extend({
   position: DS.belongsTo('position'),
