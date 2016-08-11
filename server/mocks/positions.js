@@ -4,7 +4,7 @@ module.exports = function(app) {
     , VSL = require(__dirname + '/../vsl.js')
     , vsl = new VSL(2);
   
-  function parse_location(node) {
+  function parse_point(node) {
     return node['value'].split(" ", 3).map(parseFloat);
   }
 
@@ -17,7 +17,7 @@ module.exports = function(app) {
           for ( var key in result['children']) {
             out['positions'].push({
               'id': key,
-              'location': parse_location(result['children'][key]),
+              'center': parse_point(result['children'][key]),
               'device': key  
             });
           }
@@ -35,7 +35,7 @@ module.exports = function(app) {
     var id = req.params.id;
     vsl.get_raw('/agent2/geoservice/locationOf/' + id, function (err, result) {
       res.send({
-        'positions': [ { 'id' : id, 'location': parse_location(result) }]
+        'positions': [ { 'id' : id, 'center': parse_point(result) }]
       });
     });
   });
@@ -45,7 +45,7 @@ module.exports = function(app) {
     console.dir(req.body['position']['location']);
     
     vsl.set_raw('/agent2/geoservice/locationOf/' + id, 
-      { 'value': req.body['position']['location'].join(" ") },
+      { 'value': req.body['position']['center'].join(" ") },
       function () { res.status(204).end(); }
     );
   });

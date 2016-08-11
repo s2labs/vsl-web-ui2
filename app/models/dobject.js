@@ -3,13 +3,12 @@ import DS from 'ember-data';
 export default DS.Model.extend({
   value: DS.attr('number'),
   type: DS.attr(),
-  // restrictions: DS.attr(),
+  restriction: DS.attr(),
   //min: DS.attr('number'),
   //max: DS.attr('number'),
   //timestamp: DS.attr('number'),
   //version: DS.attr('number'),
   //access: DS.attr('string'),
-  //children: DS.attr()
   children: DS.hasMany('dobject', { inverse: 'parent' }),
   parent: DS.belongsTo('dobject', { inverse: 'children' }),
   
