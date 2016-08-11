@@ -5,6 +5,11 @@ export default Ember.Controller.extend({
   center: {lat: 80, lng: -69},
   zoom: 6, 
 
+  communication: Ember.inject.service(),
+  
+  init: function() {
+    this.get('communication');
+  },
 
   actions: {
     updateLocation(r, e) {
