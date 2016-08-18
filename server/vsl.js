@@ -17,7 +17,7 @@ module.exports = VSL;
 
 
 function VSL(ka_num, keyPath, caPath) {
-  if ( keyPath == null ) keyPath='../certs/system.p12';
+  if ( keyPath == null ) keyPath='../certs/service1.p12';
   if ( caPath  == null ) caPath='../certs/ca.crt';
   
   //this.app = app;

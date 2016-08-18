@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+// documentation: https://github.com/thoov/ember-websockets/blob/master/README.md
+
 export default Ember.Service.extend({
 
   websockets: Ember.inject.service(),
@@ -26,18 +28,26 @@ export default Ember.Service.extend({
   },
 
   myOpenHandler: function(event) {
-    console.log('On open event has been called: ' + event);
-    const socket = this.get('socketRef');
+    console.log('Web scoket was successfully opened');
+    console.log(event);
     
+    const socket = this.get('socketRef');
+    // TODO replace with REST POST Request
+    //    -> create subscribe method in dobject?
+                // hmm, ne eher in nem wirklichen controller wie z.B. hier oder im ember-data apdapter...
+    //socket.send({operation: 'SUBSCRIBE', 'callbackId': 'cf255f45-c442-4af8-95f7-1c054ad0093a'}, true);
   },
 
   myMessageHandler: function(event) {
-    console.log('Message: ' + event.data);
+    console.log('Web scoket message: ' + event.data);
     this.set('message', event.data);
+    // TODO
+    // dobject event.data.address notify() ?
   },
 
   myCloseHandler: function(event) {
-    console.log(`On close event has been called: ${event}`);
+    console.log('Web scoket was closed');
+    console.log(event);
   }
   
 });
