@@ -11,6 +11,7 @@
     "matchMedia": "0.2.0",
     "leaflet": "1.0.0-rc.1",
     "Leaflet.extra-markers": "coryasilva/Leaflet.ExtraMarkers#1.0.6",
-    "knx-uf-iconset": "OpenAutomationProject/knx-uf-iconset"
+    "knx-uf-iconset": "OpenAutomationProject/knx-uf-iconset",
+    "urijs": "^1.18.1"
   }
 }

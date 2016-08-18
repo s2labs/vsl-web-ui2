@@ -10,6 +10,6 @@ export default Ember.Route.extend({
   
   init: function() {
     this.get('communication');
-  },
+  }
 
 });
