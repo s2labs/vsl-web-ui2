@@ -8,7 +8,7 @@ export default DS.Transform.extend({
 
   serialize: function(value) {
     if (value['lat']) {
-      return [value['lat'], value['lng']];
+      return [value['lat'], value['lng'], value['alt']];
     } else {
       return value;
     }

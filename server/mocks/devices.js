@@ -22,22 +22,7 @@ module.exports = function(app) {
     
     
     vsl.get(id, function (err, result) {
-    /*
-      result['id'] = id;
-      res.send({
-        'devices': [ result ]
-      });
-      */
-      var out = { 'devices': [], 'dobjects': [] };
-      var device = {'id' : id};
-      out['devices'].push(device);
-      
-      for ( var key in result) {
-        if ( key != 'children' ) {
-          device[key] = result[key];
-        }
-      }
-      // flatten node tree
+      // helper function: flatten node tree
       function serialize_children(id, attributes) {
         var item = {'id' : id};
         out['dobjects'].push(item);
@@ -54,6 +39,17 @@ module.exports = function(app) {
             item['children'].push(id + '_' + name);
             serialize_children(id + '_' + name, attributes['children'][name]);
           }
+        }
+      }
+      
+      // actual implementation of get method:
+      var out = { 'devices': [], 'dobjects': [] };
+      var device = {'id' : id};
+      out['devices'].push(device);
+      
+      for ( var key in result) {
+        if ( key != 'children' ) {
+          device[key] = result[key];
         }
       }
       
