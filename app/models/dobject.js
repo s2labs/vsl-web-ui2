@@ -33,30 +33,6 @@ export default DS.Model.extend({
     return id.substring(id.lastIndexOf('_')+1);
   }.property('id'),
   
-  
-  component: function() {
-    // from https://github.com/emberjs/ember.js/issues/3376#issuecomment-33163748
-    var componentLookup = Ember.getOwner(this).lookup('component-lookup:main');
-    
-    var component = null;
-    
-    // interated over types and check if there is a specific render component
-    for (var type of this.get('types')) {
-      component = componentLookup.lookupFactory(type.substring(1).replace('/','-'));
-      if ( component ) {
-        // matching component was found! -> stop search
-        break;
-      }
-    }
-    
-    // none was found -> use basic-composed as fallback
-    if ( !component ) {
-      component = componentLookup.lookupFactory('basic-composed');
-    }
-    
-    return component;
-  }.property('types'),
-  
   componentName: function() {
     // from https://github.com/emberjs/ember.js/issues/3376#issuecomment-33163748
     var componentLookup = Ember.getOwner(this).lookup('component-lookup:main');
