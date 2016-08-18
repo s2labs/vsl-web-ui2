@@ -6,8 +6,8 @@
     {{#marker-layer lat=p.center.lat lng=p.center.lng draggable=true onDragend=(action "updatePosition" p) icon=p.icon}} 
       <h3 title="{{p.device.type}}">{{p.device.name}} <!--[{{p.device.type}}]--></h3>
       
-      {{basic-composed c=p.device}}
-
+      {{component p.device.componentName c=p.device}}
+      
     {{/marker-layer}}
   {{/each}}
 {{/leaflet-map}}
