@@ -14,15 +14,8 @@ export default DS.Model.extend({
   children: DS.hasMany('dobject', { inverse: 'parent' }),
   parent: DS.belongsTo('dobject', { inverse: 'children' }),
   
-  type: DS.attr(),
-  types: function() {
-    var type = this.get('type');
-    if ( type ) {
-      return type.split(',');
-    }
-    return [];
-  }.property('type'),
   restriction: DS.attr(),  // TODO
+  type: DS.attr( { defaultValue: function(){ return []; } } ),
   //timestamp: DS.attr('number'),
   //version: DS.attr('number'),
   //access: DS.attr('string'),
@@ -38,7 +31,7 @@ export default DS.Model.extend({
     var componentLookup = Ember.getOwner(this).lookup('component-lookup:main');
     
     var componentName = "basic-composed";
-    for (var type of this.get('types')) {
+    for (var type of this.get('type')) {
       var name = type.substring(1).replace('/','-');
       if ( componentLookup.lookupFactory(name) ) {
         componentName = name;
@@ -48,12 +41,12 @@ export default DS.Model.extend({
     return componentName;
     
     
-  }.property('types'),
+  }.property('type'),
   
   // temporary Workaround... replace with get-template function in device renderer
   //http://stackoverflow.com/questions/11169595/check-for-a-value-equals-to-in-ember-handlebar-if-block-helper#11177435
   isSlider: function() {
-    return this.get('type').includes('/derived/percent');
+    return this.get('type').contains('/derived/percent');
   }.property('type'),
   
   
