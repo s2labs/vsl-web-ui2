@@ -14,11 +14,11 @@ export default DS.Model.extend({
   children: DS.hasMany('dobject', { inverse: 'parent' }),
   parent: DS.belongsTo('dobject', { inverse: 'children' }),
   
-  restriction: DS.attr(),  // TODO
   type: DS.attr( { defaultValue: function(){ return []; } } ),
+  restrictions: DS.attr( { defaultValue: function(){ return []; } } ),  // TODO
   //timestamp: DS.attr('number'),
   //version: DS.attr('number'),
-  //access: DS.attr('string'),
+  access: DS.attr('string'),
 
   name: function() {
     var id = this.get('id');
