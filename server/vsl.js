@@ -38,7 +38,7 @@ VSL.prototype.request = function (method, params, callback, body) {
   }
   
   var options = {
-    url: 'https://localhost:' + this.port + path,
+    url: 'https://localhost:' + this.port + path  + "?depth=1&scope=metadata",
     method: method,
     headers: {
       'Content-Type': 'application/json'
