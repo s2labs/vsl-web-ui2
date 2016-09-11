@@ -20,31 +20,11 @@ module.exports = function(app) {
           device[key] = result[key];
         }
       }
-      // flatten node tree
-      function serialize_children(id, attributes) {
-        var item = {'id' : id};
-        out['dobjects'].push(item);
-
-        for ( var key in attributes ) {
-          if ( key != 'children' ) {
-            item[key] = attributes[key]
-            //item['id'] = id + '_' + key;
-          } 
-        }
-        if (attributes['children']) {
-          item['children'] = [];
-          for ( var name in attributes['children']) {
-            item['children'].push(id + '_' + name);
-            serialize_children(id + '_' + name, attributes['children'][name]);
-          }
-        }
-      }
       
       if (result['children']) {
         device['children'] = [];
         for ( var name in result['children']) {
           device['children'].push(id + '_' + name);
-          serialize_children(id + '_' + name, result['children'][name]);
         }
       }
     
