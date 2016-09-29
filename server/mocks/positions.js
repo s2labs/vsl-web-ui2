@@ -11,18 +11,8 @@ module.exports = function(app) {
   positionsRouter.get('/', function(req, res) {
     vsl.get('/agent2/geoservice/locationOf/*',
       function (err, result) {
-        var out = { 'positions': [] };
-
-        if (result) {
-          for ( var key in result['children']) {
-            out['positions'].push({
-              'id': key,
-              'center': parse_point(result['children'][key]),
-              'device': key  
-            });
-          }
-        }
-        res.send(out);
+        res.send(result);
+        return;
       }
     );
   });
@@ -34,9 +24,7 @@ module.exports = function(app) {
   positionsRouter.get('/:id', function(req, res) {
     var id = req.params.id;
     vsl.get_raw('/agent2/geoservice/locationOf/' + id, function (err, result) {
-      res.send({
-        'positions': [ { 'id' : id, 'center': parse_point(result) }]
-      });
+      res.send(result);
     });
   });
 

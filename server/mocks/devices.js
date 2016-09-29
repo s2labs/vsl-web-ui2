@@ -23,6 +23,10 @@ module.exports = function(app) {
     
     vsl.get(id, function (err, result) {
       
+      res.send(result);
+      return;
+      
+      
       // actual implementation of get method:
       var out = { 'devices': []};
       var device = {'id' : id};

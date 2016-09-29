@@ -8,8 +8,10 @@ module.exports = function(app) {
     var id = req.params.id;
     
 
-    
     vsl.get(id.replace("_", "/"), function (err, result) {
+    
+      res.send(result);
+      return;
 
       var out = { 'dobjects': [] };
       var device = {'id' : id};
@@ -38,7 +40,7 @@ module.exports = function(app) {
     console.dir(req.body['dobject']);
     
     // TODO das mit /desired anhaengen hinten funktioniert nur weil das WebUI bisher noch keine anderen Nodes als isOn bearbeitet.
-    // das sollte eigentlich im Model oder Controller gemacht werden
+    // das sollte eigentlich im Model oder Controller=Component gemacht werden
     vsl.set(id + "/desired", 
       { 'value': req.body['dobject']['value'] }, function (err, result) { 
         res.status(204).end(); 
