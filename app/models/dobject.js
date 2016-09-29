@@ -14,8 +14,8 @@ export default DS.Model.extend({
   children: DS.hasMany('dobject', { inverse: 'parent' }),
   parent: DS.belongsTo('dobject', { inverse: 'children' }),
   
-  type: DS.attr( { defaultValue: function(){ return []; } } ),
-  restrictions: DS.attr( { defaultValue: function(){ return []; } } ),  // TODO
+  types: DS.attr( { defaultValue: function(){ return []; } } ),
+  restrictions: DS.attr( { defaultValue: function(){ return {}; } } ),  // TODO
   //timestamp: DS.attr('number'),
   //version: DS.attr('number'),
   access: DS.attr('string'),
@@ -23,7 +23,7 @@ export default DS.Model.extend({
   name: function() {
     var id = this.get('id');
     // return last element of vsl path
-    return id.substring(id.lastIndexOf('_')+1);
+    return id.substring(id.lastIndexOf('/')+1);
   }.property('id'),
   
   componentName: function() {
@@ -31,7 +31,7 @@ export default DS.Model.extend({
     var componentLookup = Ember.getOwner(this).lookup('component-lookup:main');
     
     var componentName = "basic-composed";
-    for (var type of this.get('type')) {
+    for (var type of this.get('types')) {
       var name = type.substring(1).replace('/','-');
       if ( componentLookup.lookupFactory(name) ) {
         componentName = name;
@@ -41,13 +41,23 @@ export default DS.Model.extend({
     return componentName;
     
     
-  }.property('type'),
+  }.property('types'),
+  
+  isMAPE: function() {
+    for (var type of this.get('types')) {
+      if ( type.includes('/mape') ) {
+        return true;
+      }
+    }
+    return false;
+
+  }.property('types'),
   
   // temporary Workaround... replace with get-template function in device renderer
   //http://stackoverflow.com/questions/11169595/check-for-a-value-equals-to-in-ember-handlebar-if-block-helper#11177435
   isSlider: function() {
-    return this.get('type').contains('/derived/percent');
-  }.property('type'),
+    return this.get('types').contains('/derived/percent');
+  }.property('types'),
   
   
   // TOOD sollte man das ggf. debouncen, vgl. http://discuss.emberjs.com/t/how-to-update-item-without-using-save-button-option/8529/4
