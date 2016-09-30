@@ -2,6 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model: function() {
-    return this.store.findAll('position');
+    return this.store.query('deviceref', {'typeSearch' : '/gahu/genericDevice'});
   }
 });

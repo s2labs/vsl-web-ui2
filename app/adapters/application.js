@@ -1,13 +1,6 @@
 import DS from 'ember-data';
 
 /* TODO
-
-
-* zuerst Inhalt.
-* dann URLs
-* keine Unterscheidung der URL pro Typ.
-* wir benutzen aktuell PUT und nicht PATCH -> Deswegen RESTAdapter und nicht JSONAPIAdapter
-* 
 * DOKU: https://guides.emberjs.com/v2.8.0/models/customizing-adapters/
 */
 
@@ -63,6 +56,16 @@ export default DS.RESTAdapter.extend({
     }
     return url;
   },
+  query(store, type, query) {
+      var url = this.buildURL(type.modelName, null, null, 'query', query);
+      
+      for (var key in query) {
+        url += '/agent2/' + key + query[key];
+      }
+      
+      return this.ajax(url, 'GET');
+  },
+  
 }); 
 
 

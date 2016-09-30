@@ -20,6 +20,23 @@ export default DS.JSONSerializer.extend({
 
     return this._super(store, primaryModelClass, payload, id, requestType)
   },
+  
+  // KA (typeSearch) -> client
+  normalizeQueryResponse: function(store, primaryModelClass, payload, id, requestType) {
+    if (payload.value) {
+      var result = payload.value.split('//');
+      payload = new Array(result.length);
+      for ( var key in result ) {
+          payload[key] = {
+            'id': key, 
+            'device': result[key]
+          };
+      }
+    }
+
+    return this._super(store, primaryModelClass, payload, id, requestType)
+  },
+  
   // client -> KA
   serialize: function(snapshot, options) {
     var value = snapshot.attr('value');
