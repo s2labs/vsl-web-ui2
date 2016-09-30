@@ -4,6 +4,14 @@ import DS from 'ember-data';
 * DOKU: https://guides.emberjs.com/v2.8.0/models/customizing-adapters/
 */
 
+$.ajaxSetup({
+  xhrFields: {
+    withCredentials: true
+  }
+});
+
+
+
 // Der DS2OS KA benutzt aktuell PUT und nicht PATCH -> Deswegen RESTAdapter und nicht JSONAPIAdapter
 export default DS.RESTAdapter.extend({
   namespace: '',
@@ -66,6 +74,16 @@ export default DS.RESTAdapter.extend({
       return this.ajax(url, 'GET');
   },
   
+  // from http://stackoverflow.com/a/32864639
+  // will be deprecated in future releases, see https://github.com/emberjs/data/issues/4563
+  ajax(url, method, hash) {
+    hash = hash || {};
+    //hash.crossDomain = true;
+    hash.xhrFields = {
+      withCredentials: true
+    };
+    return this._super(url, method, hash);
+  }
 }); 
 
 
