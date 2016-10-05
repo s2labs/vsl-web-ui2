@@ -9,7 +9,23 @@ export default Ember.Controller.extend({
     updatePosition(r, e) {
       let point = e.target.getLatLng();
       r.set('center', point);
-      r.save();
+      // do not save to KA until a device is assigned
+      if ( this.get('device') ) {
+      //if ( !(this.get('id') <= 0) ) {
+        r.save();
+      }
+    },
+    addPosition() {
+      this.get('store').push({ data: [{
+        id: i--,
+        type: 'position',
+        attributes: {
+          center: this.get('center')
+        },
+        relationships: {}
+      }] });
     }
   }
 });
+
+var i = -1;
