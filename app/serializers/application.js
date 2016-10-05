@@ -18,7 +18,7 @@ export default DS.JSONSerializer.extend({
 
     //delete payload.data.attributes.cost;
 
-    return this._super(store, primaryModelClass, payload, id, requestType)
+    return this._super(store, primaryModelClass, payload, id, requestType);
   },
   
   // KA (typeSearch) -> client
@@ -29,16 +29,17 @@ export default DS.JSONSerializer.extend({
       for ( var key in result ) {
           payload[key] = {
             'id': key, 
+            //'type' : 'deviceref',
             'device': result[key]
           };
       }
     }
 
-    return this._super(store, primaryModelClass, payload, id, requestType)
+    return this._super(store, primaryModelClass, payload, id, requestType);
   },
   
   // client -> KA
-  serialize: function(snapshot, options) {
+  serialize: function(snapshot /*, options*/) {
     var value = snapshot.attr('value');
     
     if ( typeof(value) === "boolean" ) {

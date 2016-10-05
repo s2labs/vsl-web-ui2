@@ -6,7 +6,7 @@ export default DS.JSONSerializer.extend({
 
     if (payload.children) {
       var children = payload.children;
-      payload = []
+      payload = [];
       for ( var key in children ) {
           payload.push({
             'id': key, //.replace(/_/g, "/"),
@@ -20,13 +20,13 @@ export default DS.JSONSerializer.extend({
       }
     }
 
-    return this._super(store, primaryModelClass, payload, id, requestType)
+    return this._super(store, primaryModelClass, payload, id, requestType);
   },
   // client -> KA
-  serialize: function(snapshot, options) {
+  serialize: function(snapshot /*, options*/) {
     var json = {
       'value': snapshot.attr('center').join(" ")
-    }
+    };
 
     return json;
   }
@@ -34,4 +34,4 @@ export default DS.JSONSerializer.extend({
 
 function parse_point(node) {
   return node['value'].split(" ", 3).map(parseFloat);
-};
+}

@@ -19,7 +19,7 @@ export default DS.RESTAdapter.extend({
   
   
   pathForType: function(type) {
-    if ( type == 'position' ) {
+    if ( type === 'position' ) {
       return 'agent2/geoservice/positionOf/*';
     }
     return ''; // all other types are in the same namespace
@@ -29,7 +29,7 @@ export default DS.RESTAdapter.extend({
   // Normalerweise wird die id durch encode URI compontent gejeagt
   // sprich die Slashes in der id werden mit %xxx escaped
   // -> Funktion überschreiben
-  buildURL: function(modelName, id, snapshot, requestType, query) {
+  buildURL: function(modelName, id, snapshot, requestType /*, query*/) {
     var url = [];
     var host = this.get('host');
     var prefix = this.urlPrefix();
@@ -43,12 +43,12 @@ export default DS.RESTAdapter.extend({
     if (id) { 
       //else return ''; TODO return empty response for id's which are not beginning with an /
       
-      if ( requestType == 'updateRecord') {
+      if ( requestType === 'updateRecord') {
         if ( isMAPE(snapshot.attr('types')) ) {
           id =  id + '/desired';
         }
       }
-      if ( id.charAt(0) == '/') id = id.substring(1)
+      if ( id.charAt(0) === '/') { id = id.substring(1); }
       
       url.push(id);  // dont encode URI compontent
     }
@@ -59,8 +59,8 @@ export default DS.RESTAdapter.extend({
       url = '/' + url;
     }
     
-    if ( modelName != 'position' && requestType.includes('find')) {
-      url = url + '?depth=1&scope=metadata'
+    if ( modelName !== 'position' && requestType.includes('find')) {
+      url = url + '?depth=1&scope=metadata';
     }
     return url;
   },
@@ -93,4 +93,4 @@ function isMAPE(types) {
         return true;
       }
     }
-};
+}
