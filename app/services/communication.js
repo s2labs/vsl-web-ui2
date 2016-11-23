@@ -5,6 +5,7 @@ import Ember from 'ember';
 export default Ember.Service.extend({
 
   websockets: Ember.inject.service(),
+  store: Ember.inject.service(),
   socketRef: null,
 
   init: function() {
@@ -28,26 +29,52 @@ export default Ember.Service.extend({
   },
 
   myOpenHandler: function(event) {
-    console.log('Web scoket was successfully opened');
-    console.log(event);
+    console.log('Web socket was successfully opened');
+    //console.log(event);
     
-    const socket = this.get('socketRef');
-    // TODO replace with REST POST Request
-    //    -> create subscribe method in dobject?
-                // hmm, ne eher in nem wirklichen controller wie z.B. hier oder im ember-data apdapter...
-    //socket.send({operation: 'SUBSCRIBE', 'callbackId': 'cf255f45-c442-4af8-95f7-1c054ad0093a'}, true);
+    // curl -E ./service1.p12:XXXXXXX -D - -H "Content-Type: application/json" -d '{"operation": "SUBSCRIBE", "callbackId": "482c2560-6531-11e6-84cf-6c400891b752"}'  https://agent2:8082/agent2/gateway1
+    // subscribe to all changes
+    Ember.$.ajax({
+      url: 'https://agent2:8082/agent2/?depth=-1',
+      type: 'POST',
+      headers: { 'Content-Type' : 'application/json' },
+      data: JSON.stringify({
+        'operation': 'SUBSCRIBE', 
+        'callbackId': 'cf255f45-c442-4af8-95f7-1c054ad0093a'
+      })
+     });
   },
 
   myMessageHandler: function(event) {
-    console.log('Web scoket message: ' + event.data);
-    this.set('message', event.data);
-    // TODO
+    //const store = this.get('store');
+    
+    console.log('Web socket message: ' + event.data);
+    var data = JSON.parse(event.data);
+
     // dobject event.data.address notify() ?
+    // from https://emberigniter.com/force-store-reload-data-api-backend/
+    var store = this.get('store');
+    // update record when it is already in the local store
+    if ( this.get('store').hasRecordForId('dobject', data['address'])) {
+      this.get('store').findRecord('dobject', data['address'], { reload: true, adapterOptions: { scope: 'value' } });
+    } else {
+      console.log(data['address'] + 'was not used yet, ingoring update notificaiton');
+    }
   },
 
   myCloseHandler: function(event) {
-    console.log('Web scoket was closed');
-    console.log(event);
+    console.log('Web scoket was closed –KA is restarting?');
+    //console.log(event);
+    /*
+    Ember.$.ajax({
+      url: 'https://agent2:8082/agent2/gateway1/?depth=-1',
+      type: 'POST',
+      headers: { 'Content-Type' : 'application/json' },
+      data: JSON.stringify({
+        'operation': 'UNSUBSCRIBE', 
+        'callbackId': 'cf255f45-c442-4af8-95f7-1c054ad0093a'
+      })
+     }); */
   }
   
 });
