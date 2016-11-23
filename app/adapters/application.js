@@ -60,7 +60,22 @@ export default DS.RESTAdapter.extend({
     }
     
     if ( modelName !== 'position' && requestType.includes('find')) {
-      url = url + '?depth=1&scope=metadata';
+      // to reduce overhead only load value and not complete object when reload is triggered via web-socket message
+      // das reload true steht in options von store.fetch() und wird bis zu https://github.com/emberjs/data/blob/3f4ae526a086dcb42c9bb0f60758c9769ea41feb/addon/-private/system/snapshot.js#L17 durchgereicht, da gehts verloren. Aber es gibt die adapterOptions... :-)
+      
+      // da {"value":"0","version":-1,"restrictions":{},"access":"","types":[]} und nicht {"value":"0"} geht da irgendwas kapput... 
+      //if ( !snapshot.adapterOptions ) {
+        url = url + '?depth=1&scope=complete';
+      /*
+      } else if ( snapshot.adapterOptions.scope != 'value' ) {
+        console.log('with adapterOptions: ' + snapshot.adapterOptions);
+        url = url + '?depth=0&scope=' + snapshot.adapterOptions.scope;
+      }
+      else {
+        //scope is value -> default -> we do not have to append anything to the url
+      }
+      console.log(url);
+      */ 
     }
     return url;
   },
