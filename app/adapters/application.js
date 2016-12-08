@@ -1,10 +1,11 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 
 /* TODO
 * DOKU: https://guides.emberjs.com/v2.8.0/models/customizing-adapters/
 */
 
-$.ajaxSetup({
+Ember.$.ajaxSetup({
   xhrFields: {
     withCredentials: true
   }
