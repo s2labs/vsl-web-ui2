@@ -1,1 +1,4 @@
-{{c.name}} {{c.value}} <input type="range" min="0" max="100" value="{{c.value}}" />
+{{c.name}} <!-- {{c.value}} --> <br/>
+{{input type="range" min=c.restrictions.minimumValue max=c.restrictions.maximumValue value=(mut c.value) }}
+
+<!--paper-slider min=c.restrictions.minimumValue max=c.restrictions.maximumValue value=c.value}}-->
