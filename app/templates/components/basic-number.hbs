@@ -1,4 +1,9 @@
 {{c.name}} <!-- {{c.value}} --> <br/>
-{{input type="range" min=c.restrictions.minimumValue max=c.restrictions.maximumValue value=(mut c.value) }}
+
+{{#if c.restrictions}}
+{{input type="range" min=c.restrictions.minimumValue max=c.restrictions.maximumValue value=(mut c.value) disabled=c.isReadonly}}
+{{else}}
+{{input type="number" value=(mut c.value) disabled=c.isReadonly}}
+{{/if}}
 
 <!--paper-slider min=c.restrictions.minimumValue max=c.restrictions.maximumValue value=c.value}}-->

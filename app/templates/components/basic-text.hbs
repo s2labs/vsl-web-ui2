@@ -1,0 +1,7 @@
+{{c.name}} <br/>
+
+{{#if c.isReadonly}}
+{{c.value}}
+{{else}}
+{{input value=(mut c.value) }}
+{{/if}}

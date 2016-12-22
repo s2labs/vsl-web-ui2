@@ -53,11 +53,12 @@ export default DS.Model.extend({
 
   }.property('types'),
   
-  // temporary Workaround... replace with get-template function in device renderer
-  //http://stackoverflow.com/questions/11169595/check-for-a-value-equals-to-in-ember-handlebar-if-block-helper#11177435
-  isSlider: function() {
-    return this.get('types').contains('/derived/percent');
-  }.property('types'),
+  isReadonly: function() {
+    if ( this.get('access') == 'r' && !this.get('isMAPE') ) {
+      return true;
+    }
+    return false;
+  }.property('access', 'isMAPE'),
   
   
   // TOOD sollte man das ggf. debouncen, vgl. http://discuss.emberjs.com/t/how-to-update-item-without-using-save-button-option/8529/4
