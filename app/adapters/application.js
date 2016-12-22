@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
+import config from '../config/environment';
 
 /* TODO
 * DOKU: https://guides.emberjs.com/v2.8.0/models/customizing-adapters/
@@ -16,7 +17,7 @@ Ember.$.ajaxSetup({
 // Der DS2OS KA benutzt aktuell PUT und nicht PATCH -> Deswegen RESTAdapter und nicht JSONAPIAdapter
 export default DS.RESTAdapter.extend({
   namespace: '',
-  host: 'https://agent2:8082',
+  host: config.kaURL,
   
   
   pathForType: function(type) {
