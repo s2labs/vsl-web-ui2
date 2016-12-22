@@ -1,8 +1,16 @@
-<ul>
+
+
+{{#paper-grid-list md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6" md-row-height="1:1"}}
+
   {{#each model as |p|}}
-<li>
-      <h3 title="{{p.id}} {{p.device.type}}">{{p.device.name}} <!--[{{p.device.type}}]--></h3>
-      {{basic-composed c=p.device}}
-</li>
+    {{#paper-grid-tile}}
+      {{#paper-card}}
+        {{#paper-card-content}}
+          <h3 title="{{p.id}} {{p.device.type}}">{{p.device.name}}</h3>
+          {{basic-composed c=p.device}}
+        {{/paper-card-content}}
+     {{/paper-card}}
+    {{/paper-grid-tile}}
   {{/each}}
-</ul>
+
+{{/paper-grid-list}}
