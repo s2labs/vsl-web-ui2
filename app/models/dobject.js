@@ -3,23 +3,15 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   value: DS.attr('number'), 
-  // TODO wie macht man den value von Nutzerseite read-only, für Änderungen vom Backend aber schreibbar?
-  //   vgl. http://www.programwitherik.com/what-are-ember-computed-properties/
-  // oder ist das eher ne Frontend sache via access... eigentlich ja.
-  // kann man auch schön im template loesen:
-  // http://emberup.co/bindings-with-htmlbars-helpers/
-  // {{my-time-input value=(readonly job.startTime) on-time-change=(action (mut job.startTime))}}
-  //
-  
-  children: DS.hasMany('dobject', { inverse: 'parent' }),
-  parent: DS.belongsTo('dobject', { inverse: 'children' }),
-  
   types: DS.attr( { defaultValue: function(){ return []; } } ),
   restrictions: DS.attr( { defaultValue: function(){ return {}; } } ),  // TODO
   //timestamp: DS.attr('number'),
   //version: DS.attr('number'),
   access: DS.attr('string'),
 
+  children: DS.hasMany('dobject', { inverse: 'parent' }),
+  parent: DS.belongsTo('dobject', { inverse: 'children' }),
+  
   name: function() {
     var id = this.get('id');
     // return last element of vsl path
@@ -39,7 +31,6 @@ export default DS.Model.extend({
       }
     }
     return componentName;
-    
     
   }.property('types'),
   
