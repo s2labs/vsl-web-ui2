@@ -7,6 +7,7 @@ export default Ember.Service.extend({
   websockets: Ember.inject.service(),
   store: Ember.inject.service(),
   socketRef: null,
+  callbackId: 'cf255f45-c442-4af8-95f7-1c054ad0093a',
 
   init: function() {
     if (!this.get('socketRef')) {
@@ -26,6 +27,17 @@ export default Ember.Service.extend({
     socket.off('open', this.myOpenHandler);
     socket.off('message', this.myMessageHandler);
     socket.off('close', this.myCloseHandler);
+    
+    Ember.$.ajax({
+      url: 'https://agent2:8082/agent2/?depth=-1',
+      type: 'POST',
+      headers: { 'Content-Type' : 'application/json' },
+      data: JSON.stringify({
+        'operation': 'UNSUBSCRIBE', 
+        'callbackId': this.callbackId
+      })
+     }); 
+    this._super(...arguments);
   },
 
   myOpenHandler: function(event) {
@@ -40,7 +52,7 @@ export default Ember.Service.extend({
       headers: { 'Content-Type' : 'application/json' },
       data: JSON.stringify({
         'operation': 'SUBSCRIBE', 
-        'callbackId': 'cf255f45-c442-4af8-95f7-1c054ad0093a'
+        'callbackId': this.callbackId
       })
      });
   },
@@ -60,21 +72,20 @@ export default Ember.Service.extend({
     } else {
       console.log(data['address'] + 'was not used yet, ingoring update notificaiton');
     }
+    
+    // confirm received message
+    this.socketRef.send({callbackId: data['callbackId'], serial: data['serial']}, true);
   },
 
   myCloseHandler: function(event) {
-    console.log('Web scoket was closed –KA is restarting?');
+    console.log('Web scoket was closed – Is KA restarting?');
+    
+    // remove the old socket and try to connect to a new one on the same url 10 seconds later.
+    Ember.run.later(this, () => { socketRef.reconnect(); }, 10000);
+    
     //console.log(event);
-    /*
-    Ember.$.ajax({
-      url: 'https://agent2:8082/agent2/gateway1/?depth=-1',
-      type: 'POST',
-      headers: { 'Content-Type' : 'application/json' },
-      data: JSON.stringify({
-        'operation': 'UNSUBSCRIBE', 
-        'callbackId': 'cf255f45-c442-4af8-95f7-1c054ad0093a'
-      })
-     }); */
+
   }
+
   
 });
