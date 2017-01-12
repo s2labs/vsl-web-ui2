@@ -1,6 +1,16 @@
 import Ember from 'ember';
+import config from '../config/environment';
 
 // documentation: https://github.com/thoov/ember-websockets/blob/master/README.md
+
+// see also https://github.com/emberjs/data/issues/4563
+Ember.$.ajaxSetup({
+  crossDomain: true,
+  xhrFields: {
+    withCredentials: true
+  }
+});
+
 
 export default Ember.Service.extend({
 
@@ -11,7 +21,7 @@ export default Ember.Service.extend({
 
   init: function() {
     if (!this.get('socketRef')) {
-      const socket = this.get('websockets').socketFor('wss://agent2:8082/callbacks', ["v1.vsl.ds2os.org"]);
+      const socket = this.get('websockets').socketFor('wss://' + config.kaURL.split('//', 2)[1] + '/callbacks', ["v1.vsl.ds2os.org"]);
       socket.on('open', this.myOpenHandler, this);
       socket.on('message', this.myMessageHandler, this);
       socket.on('close', this.myCloseHandler, this);
@@ -27,16 +37,16 @@ export default Ember.Service.extend({
     socket.off('open', this.myOpenHandler);
     socket.off('message', this.myMessageHandler);
     socket.off('close', this.myCloseHandler);
-    
+   /* 
     Ember.$.ajax({
-      url: 'https://agent2:8082/agent2/?depth=-1',
+      url: config.kaURL + '/agent2/?depth=-1',
       type: 'POST',
       headers: { 'Content-Type' : 'application/json' },
       data: JSON.stringify({
         'operation': 'UNSUBSCRIBE', 
         'callbackId': this.callbackId
       })
-     }); 
+     }); */
     this._super(...arguments);
   },
 
@@ -47,7 +57,7 @@ export default Ember.Service.extend({
     // curl -E ./service1.p12:XXXXXXX -D - -H "Content-Type: application/json" -d '{"operation": "SUBSCRIBE", "callbackId": "482c2560-6531-11e6-84cf-6c400891b752"}'  https://agent2:8082/agent2/gateway1
     // subscribe to all changes
     Ember.$.ajax({
-      url: 'https://agent2:8082/agent2/?depth=-1',
+      url: config.kaURL + '/agent2/?depth=-1',
       type: 'POST',
       headers: { 'Content-Type' : 'application/json' },
       data: JSON.stringify({
@@ -81,10 +91,9 @@ export default Ember.Service.extend({
     console.log('Web scoket was closed – Is KA restarting?');
     
     // remove the old socket and try to connect to a new one on the same url 10 seconds later.
-    Ember.run.later(this, () => { socketRef.reconnect(); }, 10000);
+    Ember.run.later(this, () => { this.socketRef.reconnect(); }, 10000);
     
     //console.log(event);
-
   }
 
   

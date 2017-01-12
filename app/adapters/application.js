@@ -6,6 +6,7 @@ import config from '../config/environment';
 * DOKU: https://guides.emberjs.com/v2.8.0/models/customizing-adapters/
 */
 
+// see also https://github.com/emberjs/data/issues/4563#issuecomment-251860488
 Ember.$.ajaxSetup({
   xhrFields: {
     withCredentials: true
@@ -93,14 +94,14 @@ export default DS.RESTAdapter.extend({
   
   // from http://stackoverflow.com/a/32864639
   // will be deprecated in future releases, see https://github.com/emberjs/data/issues/4563
-  ajax(url, method, hash) {
+  /*ajax(url, method, hash) {
     hash = hash || {};
-    //hash.crossDomain = true;
+    hash.crossDomain = true;
     hash.xhrFields = {
       withCredentials: true
     };
     return this._super(url, method, hash);
-  }
+  }*/
 }); 
 
 

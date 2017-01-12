@@ -6,14 +6,14 @@ module.exports = function(environment) {
     environment: environment,
     rootURL: '/',
     locationType: 'auto',
-    kaURL: 'https://agent2:8082', 
+    kaURL: 'https://dev.ds2os.org:8082', 
 
     contentSecurityPolicy: {
       'default-src': "'none'",
-      'script-src': "'self' localhost:4201",
+      'script-src': "'self' dev.ds2os.org:4201",
       'font-src': "'self' https://fonts.gstatic.com",
-      'connect-src': "'self' localhost:5000 localhost:8082 agent2:8082 wss://localhost:8082 131.159.14.168:4200 131.159.14.168:8082",
-      'img-src': "'self' data: *.tiles.mapbox.com *.tile.osm.org ds2os-web",
+      'connect-src': "'self' dev.ds2os.org:8082 wss://dev.ds2os.org:8082 https://dev.ds2os.org:8082",
+      'img-src': "'self' data: https://dev.ds2os.org:8082",
       'style-src': "'self' 'unsafe-inline'",
       'media-src': "'self'"
     },
