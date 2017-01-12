@@ -1,0 +1,2 @@
+#!/bin/sh
+ember s --environment=production
