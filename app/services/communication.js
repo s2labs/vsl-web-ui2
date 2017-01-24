@@ -37,17 +37,31 @@ export default Ember.Service.extend({
     socket.off('open', this.myOpenHandler);
     socket.off('message', this.myMessageHandler);
     socket.off('close', this.myCloseHandler);
-   /* 
+
+    this._super(...arguments);
+  },
+  
+  subscribe: function(path) {
     Ember.$.ajax({
-      url: config.kaURL + '/agent2/?depth=-1',
+      url: config.kaURL + path,
+      type: 'POST',
+      headers: { 'Content-Type' : 'application/json' },
+      data: JSON.stringify({
+        'operation': 'SUBSCRIBE', 
+        'callbackId': this.callbackId
+      })
+     });
+  },
+  unsubscribe: function(path) {
+    Ember.$.ajax({
+      url: config.kaURL + path,
       type: 'POST',
       headers: { 'Content-Type' : 'application/json' },
       data: JSON.stringify({
         'operation': 'UNSUBSCRIBE', 
         'callbackId': this.callbackId
       })
-     }); */
-    this._super(...arguments);
+     });
   },
 
   myOpenHandler: function(event) {
@@ -56,15 +70,7 @@ export default Ember.Service.extend({
     
     // curl -E ./service1.p12:XXXXXXX -D - -H "Content-Type: application/json" -d '{"operation": "SUBSCRIBE", "callbackId": "482c2560-6531-11e6-84cf-6c400891b752"}'  https://agent2:8082/agent2/gateway1
     // subscribe to all changes
-    Ember.$.ajax({
-      url: config.kaURL + '/agent2/?depth=-1',
-      type: 'POST',
-      headers: { 'Content-Type' : 'application/json' },
-      data: JSON.stringify({
-        'operation': 'SUBSCRIBE', 
-        'callbackId': this.callbackId
-      })
-     });
+    //this.subscribe('/agent2/gateway1?depth=-1');
   },
 
   myMessageHandler: function(event) {

@@ -12,6 +12,17 @@ export default DS.Model.extend({
   children: DS.hasMany('dobject', { inverse: 'parent' }),
   parent: DS.belongsTo('dobject', { inverse: 'children' }),
   
+  init: function() {
+    // subscribe for future changes on this dobject
+    this.get('communication').subscribe(this.get('id'));
+  },
+  willDestroyElement: function() {
+    // TODO: unsubscribe again –is this method actually called?
+    console.log(this.get('id') + "will be destroyed!");
+    this.get('communication').unsubscribe(this.get('id'));
+  },
+  
+  
   name: function() {
     var id = this.get('id');
     // return last element of vsl path
