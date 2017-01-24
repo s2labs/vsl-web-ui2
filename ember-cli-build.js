@@ -12,7 +12,10 @@ module.exports = function(defaults) {
             'images/layers.png',
             'images/marker-icon-2x.png',
             'images/marker-icon.png',
-            'images/marker-shadow.png'
+            'images/marker-shadow.png',
+            'images/marker-shadow@2x.png',
+            'images/marker-default.png',
+            'images/marker-default@2x.png'
           ]
         }
     });
@@ -35,7 +38,7 @@ module.exports = function(defaults) {
 
     //app.import('bower_components/Leaflet.Grid/L.Grid.js')
     app.import('bower_components/leaflet.coordinates/dist/Leaflet.Coordinates-0.1.5.min.js');
-    
+
     // TODO http://stackoverflow.com/a/29480973
     app.import('bower_components/leaflet.extra-markers/dist/js/leaflet.extra-markers.min.js');
     app.import('bower_components/leaflet.extra-markers/dist/css/leaflet.extra-markers.min.css');
@@ -43,10 +46,10 @@ module.exports = function(defaults) {
     app.import('bower_components/leaflet.extra-markers/dist/img/markers_shadow.png', {destDir: 'img'});
     app.import('bower_components/leaflet.extra-markers/dist/img/markers_default@2x.png', {destDir: 'img'});
     app.import('bower_components/leaflet.extra-markers/dist/img/markers_shadow@2x.png', {destDir: 'img'});
-    
-    
+
+
     //app.import('bower_components/svg-injector/dist/svg-injector.min.js');
-    
+
     app.import('bower_components/knx-uf-iconset/raw_480x480/fts_shutter.png', {destDir: 'img'});
     return app.toTree();
 };

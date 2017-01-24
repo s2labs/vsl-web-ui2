@@ -45,7 +45,7 @@ export default DS.Model.extend({
   }.property('types'),
   
   isReadonly: function() {
-    if ( this.get('access') == 'r' && !this.get('isMAPE') ) {
+    if ( this.get('access') === 'r' && !this.get('isMAPE') ) {
       return true;
     }
     return false;
@@ -56,7 +56,7 @@ export default DS.Model.extend({
   // TODO hat dieser Code überhaupt was im Model zu suchen?
   watchValue: function() {
     if ( this.get('hasDirtyAttributes') ) {
-      console.log('value changed');
+      //console.log('value changed');
       this.save();
     }
   }.observes('value')
