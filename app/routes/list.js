@@ -6,13 +6,4 @@ export default Ember.Route.extend({
     return this.store.query('deviceref', {'typeSearch' : '/gahu/genericDevice'});
   },
 
-  //will load the service in file /app/services/communication.js
-  communication: Ember.inject.service(),
-  
-  init: function() {
-    this.get('communication');
-  }
-
-
-
 });
