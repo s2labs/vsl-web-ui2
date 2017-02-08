@@ -14,7 +14,9 @@ export default DS.Model.extend({
   
   init: function() {
     // subscribe for future changes on this dobject
-    this.get('communication').subscribe(this.get('id'));
+    if ( this.get('name') != 'desired' ) {
+      this.get('communication').subscribe(this.get('id'));
+    }
   },
   willDestroyElement: function() {
     // TODO: unsubscribe again –is this method actually called?
