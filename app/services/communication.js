@@ -24,9 +24,9 @@ export default Ember.Service.extend({
   init: function() {
     if (!this.get('socketRef')) {
       const socket = this.get('websockets').socketFor('wss://' + config.kaURL.split('//', 2)[1] + '/callbacks', ["v1.vsl.ds2os.org"]);
-      socket.on('open', this.myOpenHandler, this);
-      socket.on('message', this.myMessageHandler, this);
-      socket.on('close', this.myCloseHandler, this);
+      socket.on('open', this.openHandler, this);
+      socket.on('message', this.messageHandler, this);
+      socket.on('close', this.closeHandler, this);
       
       this.set('socketRef', socket);
       this.set('callbackId', uuid.v4());
@@ -76,48 +76,38 @@ export default Ember.Service.extend({
       });
   },
 
-  myOpenHandler: function(event) {
+  openHandler: function() {
     console.log('Web socket was successfully opened');
     if ( this.get('resubscribeOnReconnect') === true ){
       this.resubscribe();
     }
-    
-    
-    //console.log(event);
-    
-    // curl -E ./service1.p12:XXXXXXX -D - -H "Content-Type: application/json" -d '{"operation": "SUBSCRIBE", "callbackId": "482c2560-6531-11e6-84cf-6c400891b752"}'  https://agent2:8082/agent2/gateway1
-    // subscribe to all changes
-    //this.subscribe('/agent2/gateway1?depth=-1');
   },
 
-  myMessageHandler: function(event) {
-    //const store = this.get('store');
+  messageHandler: function(event) {
+    const store = this.get('store');
     
-    console.log('Web socket message: ' + event.data);
+    //console.log('Web socket message: ' + event.data);
     var data = JSON.parse(event.data);
-
+    
     // dobject event.data.address notify() ?
     // from https://emberigniter.com/force-store-reload-data-api-backend/
-    var store = this.get('store');
     // update record when it is already in the local store
-    if ( this.get('store').hasRecordForId('dobject', data['address'])) {
-      this.get('store').findRecord('dobject', data['address'], { reload: true, adapterOptions: { scope: 'value' } });
+    if ( store.hasRecordForId('dobject', data['address'])) {
+      store.findRecord('dobject', data['address'], { reload: true, adapterOptions: { scope: 'value' } });
     } else {
-      console.log(data['address'] + 'was not used yet, ingoring update notificaiton');
+      console.log('ingoring update notificaiton for ' + data['address'] + '; it was not instanciated yet.');
     }
     
     // confirm received message
     this.socketRef.send({callbackId: data['callbackId'], serial: data['serial']}, true);
   },
 
-  myCloseHandler: function(event) {
+  closeHandler: function() {
     console.log('Web scoket was closed – Is KA restarting?');
     this.set('resubscribeOnReconnect', true);
     
     // remove the old socket and try to connect to a new one on the same url 10 seconds later.
     Ember.run.later(this, () => { this.socketRef.reconnect(); }, 10000);
-    
-    //console.log(event);
   }
 
   
