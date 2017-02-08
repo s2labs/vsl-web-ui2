@@ -13,11 +13,17 @@ export default DS.Model.extend({
   parent: DS.belongsTo('dobject', { inverse: 'children' }),
   
   init: function() {
+    this.subscribe();
+  },
+  
+  subscribe: function() {
     // subscribe for future changes on this dobject
     if ( this.get('name') != 'desired' ) {
       this.get('communication').subscribe(this.get('id'));
+      //console.log('subscribed for ' + this.get('id'));
     }
   },
+  
   willDestroyElement: function() {
     // TODO: unsubscribe again –is this method actually called?
     console.log(this.get('id') + "will be destroyed!");

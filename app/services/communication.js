@@ -19,6 +19,7 @@ export default Ember.Service.extend({
   store: Ember.inject.service(),
   socketRef: null,
   callbackId: '',
+  resubscribeOnReconnect: false,
 
   init: function() {
     if (!this.get('socketRef')) {
@@ -66,8 +67,22 @@ export default Ember.Service.extend({
      });
   },
 
+  // resubscribe for changes on all active dobjects when KA was restarted
+  resubscribe: function() {
+      // iterate over all dobject which we have in our local cache aka store
+      this.get('store').peekAll('dobject').forEach(function(item) {
+        console.log(item.get('id'));
+        item.subscribe();
+      });
+  },
+
   myOpenHandler: function(event) {
     console.log('Web socket was successfully opened');
+    if ( this.get('resubscribeOnReconnect') === true ){
+      this.resubscribe();
+    }
+    
+    
     //console.log(event);
     
     // curl -E ./service1.p12:XXXXXXX -D - -H "Content-Type: application/json" -d '{"operation": "SUBSCRIBE", "callbackId": "482c2560-6531-11e6-84cf-6c400891b752"}'  https://agent2:8082/agent2/gateway1
@@ -97,6 +112,7 @@ export default Ember.Service.extend({
 
   myCloseHandler: function(event) {
     console.log('Web scoket was closed – Is KA restarting?');
+    this.set('resubscribeOnReconnect', true);
     
     // remove the old socket and try to connect to a new one on the same url 10 seconds later.
     Ember.run.later(this, () => { this.socketRef.reconnect(); }, 10000);
