@@ -23,7 +23,8 @@ export default Ember.Service.extend({
 
   init: function() {
     if (!this.get('socketRef')) {
-      const socket = this.get('websockets').socketFor('wss://' + config.kaURL.split('//', 2)[1] + '/callbacks', ["v1.vsl.ds2os.org"]);
+      const host = config.kaURL ? config.kaURL.split('//', 2)[1] : document.location.host;
+      const socket = this.get('websockets').socketFor('wss://' + host + '/callbacks', ["v1.vsl.ds2os.org"]);
       socket.on('open', this.openHandler, this);
       socket.on('message', this.messageHandler, this);
       socket.on('close', this.closeHandler, this);
