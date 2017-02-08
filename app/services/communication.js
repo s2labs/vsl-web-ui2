@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import config from '../config/environment';
+import uuid from 'ember-uuid';
 
 // documentation: https://github.com/thoov/ember-websockets/blob/master/README.md
 
@@ -17,7 +18,7 @@ export default Ember.Service.extend({
   websockets: Ember.inject.service(),
   store: Ember.inject.service(),
   socketRef: null,
-  callbackId: 'cf255f45-c442-4af8-95f7-1c054ad0093a',
+  callbackId: '',
 
   init: function() {
     if (!this.get('socketRef')) {
@@ -27,6 +28,7 @@ export default Ember.Service.extend({
       socket.on('close', this.myCloseHandler, this);
       
       this.set('socketRef', socket);
+      this.set('callbackId', uuid.v4());
     }
   },
   message: '',
