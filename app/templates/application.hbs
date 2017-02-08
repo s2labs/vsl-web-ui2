@@ -7,14 +7,12 @@
       {{#md-button class="md-icon-button"}}
         {{md-icon md-svg-icon="images/icons/menu.svg"}}
       {{/md-button}} -->
-        <h2>VSL web<small class=".md-caption"> (2.0-rc1)</small></h2>
-        
-        {{#paper-button action=(transition-to 'map')}}Map{{/paper-button}}
-        {{#paper-button action=(transition-to 'list')}}List{{/paper-button}}
-        <!-- {{#paper-button action=(transition-to 'test')}}Test{{/paper-button}} -->
+        <h2>2.0-rc3</h2>
+        <span flex></span>
+        {{#link-to 'map'}}floor plan{{/link-to}}
+        <span flex></span>
+        {{#link-to 'list'}}all devices{{/link-to}}
 
-        <!-- {{#link-to 'test'}}Test{{/link-to}} -->
-        
         <span flex></span>
 
         {{#paper-button classNames="md-icon-button"}}
@@ -22,7 +20,7 @@
         {{/paper-button}}
     </div>
   {{/paper-toolbar}}
-  
+
   {{#paper-content flex-layout="column" flex=true}}
     {{outlet}}
   {{/paper-content}}
