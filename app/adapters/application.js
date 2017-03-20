@@ -2,7 +2,7 @@ import Ember from 'ember';
 import DS from 'ember-data';
 import config from '../config/environment';
 
-/* TODO
+/* 
 * DOKU: https://guides.emberjs.com/v2.8.0/models/customizing-adapters/
 */
 
@@ -23,13 +23,13 @@ export default DS.RESTAdapter.extend({
   
   pathForType: function(type) {
     if ( type === 'position' ) {
-      return 'agent2/geoservice/positionOf/*';
+      return 'agent2/geoservice/positionOf';
     }
     return ''; // all other types are in the same namespace
   },
   
   // https://github.com/emberjs/data/blob/v2.7.0/addon/-private/adapters/build-url-mixin.js#L33
-  // Normalerweise wird die id durch encode URI compontent gejeagt
+  // Normalerweise wird die id durch encode URI compontent gejagt
   // sprich die Slashes in der id werden mit %xxx escaped
   // -> Funktion überschreiben
   buildURL: function(modelName, id, snapshot, requestType /*, query*/) {
@@ -47,14 +47,17 @@ export default DS.RESTAdapter.extend({
       //else return ''; TODO return empty response for id's which are not beginning with an /
       
       if ( requestType === 'updateRecord') {
-        if ( isMAPE(snapshot.attr('types')) ) {
+        if ( modelName !== 'position' && isMAPE(snapshot.attr('types')) ) {
           id =  id + '/desired';
         }
       }
       if ( id.charAt(0) === '/') { id = id.substring(1); }
       
       url.push(id);  // dont encode URI compontent
+    } else if (requestType === 'findAll') {
+      url.push('*');
     }
+    
     if (prefix) { url.unshift(prefix); }
 
     url = url.join('/');
@@ -82,7 +85,7 @@ export default DS.RESTAdapter.extend({
     }
     return url;
   },
-  query(store, type, query) {
+  query: function(store, type, query) {
       var url = this.buildURL(type.modelName, null, null, 'query', query);
       
       for (var key in query) {

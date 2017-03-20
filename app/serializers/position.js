@@ -24,8 +24,9 @@ export default DS.JSONSerializer.extend({
   },
   // client -> KA
   serialize: function(snapshot /*, options*/) {
+    var c = snapshot.attr('center');
     var json = {
-      'value': snapshot.attr('center').join(" ")
+      'value': [c['lat'], c['lng'], c['alt']].join(" ")
     };
 
     return json;
