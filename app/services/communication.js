@@ -47,7 +47,7 @@ export default Ember.Service.extend({
   
   subscribe: function(path) {
     Ember.$.ajax({
-      url: config.kaURL + path,
+      url: config.kaURL + '/vsl' + path,
       type: 'POST',
       headers: { 'Content-Type' : 'application/json' },
       data: JSON.stringify({
@@ -58,7 +58,7 @@ export default Ember.Service.extend({
   },
   unsubscribe: function(path) {
     Ember.$.ajax({
-      url: config.kaURL + path,
+      url: config.kaURL + '/vsl' + path,
       type: 'POST',
       headers: { 'Content-Type' : 'application/json' },
       data: JSON.stringify({

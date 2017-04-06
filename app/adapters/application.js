@@ -23,15 +23,14 @@ export default DS.RESTAdapter.extend({
   
   pathForType: function(type) {
     if ( type === 'position' ) {
-      return 'agent2/geoservice/positionOf';
+      return 'vsl/agent2/geoservice/positionOf';
     }
-    return ''; // all other types are in the same namespace
+    return 'vsl'; // all other types are in the same namespace
   },
   
   // https://github.com/emberjs/data/blob/v2.7.0/addon/-private/adapters/build-url-mixin.js#L33
-  // Normalerweise wird die id durch encode URI compontent gejagt
-  // sprich die Slashes in der id werden mit %xxx escaped
-  // -> Funktion überschreiben
+  // Normalerweise wird die id durch encode URI component gejagt, dabei werden die slashes in der id durch %xxx ersetzt/escaped
+  // Da wir das nicht wollen muessen wir die Funktion ueberschreiben:
   buildURL: function(modelName, id, snapshot, requestType /*, query*/) {
     var url = [];
     var host = this.get('host');
