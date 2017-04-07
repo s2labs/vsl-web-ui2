@@ -21,4 +21,9 @@ md-content {
     transform: rotate(90deg);
 }
 
+.paper-card-content h3 {
+    margin-top: 0;
+}
+
+
 @import 'ember-paper';
