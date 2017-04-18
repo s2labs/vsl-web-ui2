@@ -8,12 +8,13 @@ export default Ember.Controller.extend({
   actions: {
     updatePosition(r, e) {
       let point = e.target.getLatLng();
+      point['alt'] = 3; // TODO use current floor value when floor selector was implemented
       r.set('center', point);
       // do not save to KA until a device is assigned
-      if ( this.get('device') ) {
+      //if ( this.get('device') ) {
       //if ( !(this.get('id') <= 0) ) {
         r.save();
-      }
+      //}
     },
     addPosition() {
       this.get('store').push({ data: [{
