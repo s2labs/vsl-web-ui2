@@ -5,8 +5,21 @@
   {{#each model as |p|}}
     {{#marker-layer lat=p.center.lat lng=p.center.lng draggable=true onDragend=(action "updatePosition" p) icon=p.device.icon}} 
       {{#popup-layer}}
-        <h3 title="{{p.device.type}}">{{p.device.name}} <!--[{{p.device.type}}]--></h3>
-        {{component p.device.componentName c=p.device}}
+        {{#if p.device}}
+          <h3 title="{{p.device.type}}">{{p.device.name}} <!--[{{p.device.type}}]--></h3>
+          {{component p.device.componentName c=p.device}}
+        {{else}}
+          
+          {{#paper-select on-open=loadDevicesWithoutLocation on-load=openSelect item-label-callback=labelCallback placeholder="device" model=p.device onChange=(action "setDevice" p) as |items|}}
+            {{#each items as |item|}}
+              {{#paper-option value=item}}
+                {{item.name}}
+              {{/paper-option}}
+            {{/each}}
+          {{/paper-select}}
+          
+          
+        {{/if}}
       {{/popup-layer}}
       
     {{/marker-layer}}
