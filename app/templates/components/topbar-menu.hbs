@@ -1,0 +1,28 @@
+<div class="md-toolbar-tools">
+<!--
+{{#md-button class="md-icon-button"}}
+{{md-icon md-svg-icon="images/icons/menu.svg"}}
+{{/md-button}} -->
+<h2>2.0-rc4</h2>
+<span flex />
+
+{{#paper-item action=(transition-to "map")}}floor plan{{/paper-item}}
+<span flex />
+{{#paper-item action=(transition-to "list")}}grid{{/paper-item}}
+
+<span flex />
+{{#paper-menu as |menu|}}
+  {{#paper-button classNames="md-icon-button"  target=menu action="toggleMenu" icon-button=true}}
+      {{paper-icon icon="more-vert" class="md-menu-origin"}}
+  {{/paper-button}}
+
+{{else}}
+    {{#paper-menu-item action="reload"}}
+      {{paper-icon icon="rotate-right"}} <span>reload</span>
+    {{/paper-menu-item}}
+    {{#paper-menu-item action="reload"}}
+      {{paper-icon icon="supervisor-account"}} <span>change user</span>
+    {{/paper-menu-item}}
+{{/paper-menu}}
+
+</div>
