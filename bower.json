@@ -9,7 +9,7 @@
     "hammer.js": "^2.0.8",
     "matchMedia": "0.2.0",
     "leaflet": "^1.0.2",
-    "Leaflet.extra-markers": "coryasilva/Leaflet.ExtraMarkers#1.0.6",
+    "leaflet.extra-markers": "coryasilva/Leaflet.ExtraMarkers#1.0.6",
     "knx-uf-iconset": "OpenAutomationProject/knx-uf-iconset",
     "urijs": "^1.18.1"
   }
