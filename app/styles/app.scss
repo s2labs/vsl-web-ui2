@@ -25,5 +25,14 @@ md-content {
     margin-top: 0;
 }
 
+div.md-fab-bottom-right {
+    position: fixed; 
+
+    bottom: 16px; right: 16px; 
+    @media (min-width: 480px) {
+        bottom: 32px; right: 32px; 
+    }
+    z-index:100000;
+}
 
 @import 'ember-paper';
