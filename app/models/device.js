@@ -7,8 +7,12 @@ var Device = Dobject.extend({
 
   icon: Ember.computed('componentName', function() {
     var component = Ember.getOwner(this).lookup('component:'+this.get('componentName'));
-    // icon attribute is a funciton which return new Leaflet Marker instance -> call it
-    return component.get('icon')();
+    
+    // "icon" is a list with two items: icon class and args
+    //  we need to create a new Leaflet Marker instance here
+    //    -> call it
+    var icon = component.get('icon');
+    return new icon[0](icon[1]); 
   })
 });
 
