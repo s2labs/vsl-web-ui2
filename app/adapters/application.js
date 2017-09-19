@@ -37,10 +37,8 @@ export default DS.RESTAdapter.extend({
     var prefix = this.urlPrefix();
     var path;
 
-    if (modelName) {
-      path = this.pathForType(modelName);
-      if (path) { url.push(path); }
-    }
+    path = this.pathForType(modelName);
+    if (path) { url.push(path); }
 
     if (id) { 
       //else return ''; TODO return empty response for id's which are not beginning with an /
@@ -88,6 +86,7 @@ export default DS.RESTAdapter.extend({
       var url = this.buildURL(type.modelName, null, null, 'query', query);
       
       for (var key in query) {
+        // TODO: replace /agent2/ with /search/ when implemented in KA
         url += '/agent2/' + key + query[key];
       }
       

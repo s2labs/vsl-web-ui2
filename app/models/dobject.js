@@ -13,6 +13,7 @@ export default DS.Model.extend({
   parent: DS.belongsTo('dobject', { inverse: 'children' }),
   
   init: function() {
+    // use Ember.run.later() ?
     this.subscribe();
   },
   

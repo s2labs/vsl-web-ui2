@@ -96,7 +96,7 @@ export default Ember.Service.extend({
     if ( store.hasRecordForId('dobject', data['address'])) {
       store.findRecord('dobject', data['address'], { reload: true, adapterOptions: { scope: 'value' } });
     } else {
-      console.log('ingoring update notificaiton for ' + data['address'] + '; it was not instanciated yet.');
+      console.log('ingoring update notification for ' + data['address'] + '; it was not instanciated yet.');
     }
     
     // confirm received message
